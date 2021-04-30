@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="34.123.181.146" id="61d60f2a-c755-451c-989f-a2cf53dba381" keyPath="C:\Users\diego\OneDrive\Área de Trabalho\chaves ssh\petdavila_private.ppk" port="22" nameFormat="DESCRIPTIVE" username="root" />
+    </configs>
+  </component>
+</project>

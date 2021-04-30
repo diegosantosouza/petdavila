@@ -1,0 +1,76 @@
+@extends('admin.master.master')
+
+@section('content')
+    <section class="dash_content_app">
+
+        <header class="dash_content_app_header">
+            <h2 class="icon-user-plus">Novo</h2>
+
+            <div class="dash_content_app_header_actions">
+                <nav class="dash_content_app_breadcrumb">
+                    <ul>
+                        <li><a href="{{ route('admin') }}">Início</a></li>
+                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li><a href="{{ route('tutores.create') }}" class="text-orange">Novo tutor</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div class="dash_content_app_box">
+            <div class="nav">
+
+                @if($errors->all())
+                    @foreach($errors->all() as $error)
+                        <div class="message message-orange">
+                            <p class="icon-asterisk">{{ $error }}</p>
+                        </div>
+                    @endforeach
+                @endif
+
+                <ul class="nav_tabs">
+                    <li class="nav_tabs_item">
+                        <a href="#tutor" class="nav_tabs_item_link active">Dados do Tutor</a>
+                    </li>
+                </ul>
+
+                <form class="app_form" action="{{ route('tutores.store') }}" method="post"
+                      enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="nav_tabs_content">
+                        <div id="tutor">
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">*Nome:</span>
+                                    <input type="text" name="nome" placeholder="Nome Completo"
+                                           value="{{ old('nome')  }}"/>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">*Celular:</span>
+                                    <input type="tel" name="telefone" class="mask-cell"
+                                           placeholder="Número do Telefone com DDD" value="{{ old('telefone') }}"/>
+                                </label>
+                            </div>
+
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">*CPF:</span>
+                                    <input type="tel" class="mask-doc" name="cpf" placeholder="CPF do Cliente"
+                                           value="{{ old('cpf') }}"/>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-right mt-2">
+                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+@endsection

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="clinica" uploadOnCheckin="8538ebc5-d100-498c-9ad1-4b4c6cab2476" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="clinica">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="petdavila">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="petdavila" />
+  </component>
+</project>
