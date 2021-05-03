@@ -90,7 +90,7 @@ class RegistrosController extends Controller
      */
     public function create()
     {
-        $registros = Registros::whereDate('entrada', '=', date('Y-m-d'))->get();
+        $registros = Registros::where('saida', null)->get();
         return view('admin.registros.create', ['registros' => $registros]);
     }
 
@@ -109,7 +109,7 @@ class RegistrosController extends Controller
         }
 
         if ($animal->id == true) {
-            $registro = Registros::whereDate('entrada', '=', date('Y-m-d'))->where('animal_id', $animal->id)->latest()->first();
+            $registro = Registros::where('animal_id', $animal->id)->latest()->first();
 
             if ($registro == null || (!empty($registro->saida))) {
                 $novoreg = new Registros();
@@ -119,20 +119,20 @@ class RegistrosController extends Controller
                 return redirect()->route('registros.create')->with(['animal' => $animal, 'color' => 'green', 'message' => 'Entrada efetuada.']);
             }
 
-            $hoje = new \DateTime();
-            $entrada = new \DateTime($registro->entrada);
-            $diferenca = $entrada->diff($hoje);
+//            $hoje = new \DateTime();
+//            $entrada = new \DateTime($registro->entrada);
+//            $diferenca = $entrada->diff($hoje);
+//        dd($diferenca);
+//            if ($diferenca->i < 10) {
+//                Registros::find($registro->id)->delete();
+//                return redirect()->route('registros.create')->with(['animal' => $animal, 'color' => 'orange', 'message' => 'Registro deletado.']);
+//            }
 
-            if ($diferenca->i < 10) {
-                Registros::find($registro->id)->delete();
-                return redirect()->route('registros.create')->with(['animal' => $animal, 'color' => 'orange', 'message' => 'Registro deletado.']);
-            }
-
-            if ($diferenca->i > 10) {
-                $registro->saida = new \DateTime();
-                $registro->save();
-                return redirect()->route('registros.create')->with(['animal' => $animal, 'color' => 'green', 'message' => 'Saída efetuada.']);
-            }
+//            if ($diferenca->i > 10) {
+            $registro->saida = new \DateTime();
+            $registro->save();
+            return redirect()->route('registros.create')->with(['animal' => $animal, 'color' => 'green', 'message' => 'Saída efetuada.']);
+//            }
         }
     }
 

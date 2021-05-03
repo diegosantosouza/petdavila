@@ -50,7 +50,7 @@
 
                             @foreach($registros as $registro)
                                 <tr>
-                                    <td>{{$registro->id}}</td>
+                                    <td>{{$registro->registrosAnimal->id}}</td>
                                     <td>{{$registro->registrosAnimal->nome}}</a></td>
                                     <td>{{$registro->registrosAnimal->raca}}</td>
                                     <td>{{$registro->tutorAnimal->nome}}</td>

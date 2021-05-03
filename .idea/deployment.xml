@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="clinica" uploadOnCheckin="8538ebc5-d100-498c-9ad1-4b4c6cab2476" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="clinica" uploadOnCheckin="75fba8a4-fc50-4b54-8380-01e990859a34" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="clinica">
         <serverdata>
@@ -17,6 +17,6 @@
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="petdavila" />
+    <option name="myUploadOnCheckinName" value="clinica" />
   </component>
 </project>
