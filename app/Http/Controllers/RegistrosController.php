@@ -46,7 +46,7 @@ class RegistrosController extends Controller
             if (empty($request->data_termino)) {
                 $request->data_termino = date('d/m/Y');
             }
-            $buscas = Registros::where('entrada', '>=', $this->convertStringToDate($request->data_inicio))->where('entrada', '<=', $this->convertStringToDate($request->data_termino))->get();
+            $buscas = Registros::where('entrada', '>=', $this->convertStringToDate($request->data_inicio))->where('saida', '<=', $this->convertStringToDate($request->data_termino))->orWhere('saida', null)->get();
             return view('admin.registros.relatorios', ['buscas' => $buscas, 'inicio' => $request->data_inicio, 'termino' => $request->data_termino]);
 
         }
