@@ -117,6 +117,17 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/temporary-directory" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/laravel-backup" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/spatie/db-dumper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/slack-notification-channel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/league/flysystem-cached-adapter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nao-pon/flysystem-google-drive" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/nao-pon/flysystem-cached-extra" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/auth" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/apiclient-services" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/google/apiclient" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpseclib/phpseclib" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

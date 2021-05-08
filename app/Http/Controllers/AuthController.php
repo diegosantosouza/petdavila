@@ -14,10 +14,10 @@ class AuthController extends Controller
 {
     public function dashboard()
     {
-            $agora = Registros::whereDate('entrada', '=', date('Y-m-d'))->where('saida', null)->count();
+            $agora = Registros::where('saida', null)->count();
             $hoje = Registros::whereDate('entrada', '=', date('Y-m-d'))->count();
             $mes = Registros::whereYear('entrada', '=', date("Y"))->whereMonth('entrada', '=', date("m"))->count();
-            $registros = Registros::whereDate('entrada', '=', date('Y-m-d'))->get();
+            $registros = Registros::latest()->take(50)->get();
             return view('admin.dashboard', ['agora'=>$agora, 'hoje'=>$hoje, 'mes'=>$mes, 'registros'=>$registros]);
 
     }
