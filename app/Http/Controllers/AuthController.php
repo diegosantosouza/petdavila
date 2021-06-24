@@ -8,7 +8,6 @@ use App\Registros;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
@@ -17,7 +16,7 @@ class AuthController extends Controller
             $agora = Registros::where('saida', null)->count();
             $hoje = Registros::whereDate('entrada', '=', date('Y-m-d'))->count();
             $mes = Registros::whereYear('entrada', '=', date("Y"))->whereMonth('entrada', '=', date("m"))->count();
-            $registros = Registros::latest()->take(50)->get();
+            $registros = Registros::latest()->take(50)->with(['registrosAnimal','tutorAnimal'])->get();
             return view('admin.dashboard', ['agora'=>$agora, 'hoje'=>$hoje, 'mes'=>$mes, 'registros'=>$registros]);
 
     }

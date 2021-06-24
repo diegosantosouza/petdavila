@@ -102,6 +102,14 @@
                             <span>Raça:</span>
                             <input class="mb-1" type="text" name="raca" placeholder=""
                                    value="{{old('raca') }}"/>
+                            <span>Categoria:</span>
+                            <select name="categoria_id" class="select2">
+                                @foreach($categorias as $categoria)
+                                <option value="{{$categoria->id}}" {{ (old('categoria_id') == $categoria->id ? 'selected' : '') }}>
+                                    {{$categoria->categoria}}
+                                </option>
+                                @endforeach
+                            </select>
                             <span>Foto</span>
                             <input type="file" name="foto" value="{{ old('foto') }}">
                             <button type="submit" class="mt-1 btn btn-green icon-plus">Salvar</button>

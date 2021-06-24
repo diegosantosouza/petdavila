@@ -14,6 +14,7 @@ class Animais extends Model
         'nome',
         'raca',
         'foto',
+        'categoria_id'
     ];
 
     public function getUrlFotoAttribute()
@@ -32,6 +33,13 @@ class Animais extends Model
     public function animalRegistros()
     {
         return $this->hasMany(Registros::class, 'animal_id','id');
+    }
+
+    public function categoriaAnimal()
+    {
+        return $this->hasOne(Categorias::class, 'id', 'categoria_id')->withDefault([
+            'categoria_id' => '',
+        ]);;
     }
 
 }

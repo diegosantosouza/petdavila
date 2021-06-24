@@ -47,12 +47,17 @@
 
                     <div class="nav_tabs_content">
                         <div id="tutor">
-
-                            <label class="label">
-                                <span class="legend">*Nome:</span>
-                                <input type="text" name="nome" value="{{ $animal->nome }}"/>
-                            </label>
-
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">*Nome:</span>
+                                    <input type="text" name="nome" value="{{ $animal->nome }}"/>
+                                </label>
+                                <label class="label">
+                                    <span>Categoria:</span>
+                                    <input type="text" name="categoria_id"
+                                           value="{{$animal->categoriaAnimal->categoria}}">
+                                </label>
+                            </div>
 
                             <div class="label_g2">
                                 <label class="label">
@@ -87,6 +92,10 @@
                         <th>Tutor</th>
                         <th>Entrada</th>
                         <th>Saída</th>
+                        <th>Day</th>
+                        <th>Night</th>
+                        <th>Fds</th>
+                        <th>Obs.</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -94,11 +103,15 @@
                     @foreach($animal->animalRegistros as $registro)
                         <tr>
                             <td>{{$registro->id}}</td>
-                            <td>{{$registro->registrosAnimal->nome}}</a></td>
-                            <td>{{$registro->registrosAnimal->raca}}</td>
-                            <td>{{$registro->tutorAnimal->nome}}</td>
+                            <td>{{$animal->nome}}</a></td>
+                            <td>{{$animal->raca}}</td>
+                            <td>{{$animal->donosAnimal->nome}}</td>
                             <td>{{$registro->getEntradaDataAttribute()}}</td>
                             <td>{{$registro->getSaidaDataAttribute()}}</td>
+                            <td>{{$registro->daycare}}</td>
+                            <td>{{$registro->nightcare}}</td>
+                            <td>{{$registro->fds}}</td>
+                            <td>@if(!empty($registro->observacoes)){{$registro->observacoes}}@endif</td>
                         </tr>
                     @endforeach
                     </tbody>

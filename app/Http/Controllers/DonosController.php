@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Categorias;
 use App\Donos;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\DonosRequest as DonosRequest;
@@ -16,7 +17,8 @@ class DonosController extends Controller
     public function index()
     {
         $donos = Donos::select('id', 'nome', 'telefone', 'cpf')->get();
-        return view('admin.donos.index', ['donos' => $donos]);
+        $categorias = Categorias::all();
+        return view('admin.donos.index', ['donos' => $donos, 'categorias'=>$categorias]);
     }
 
     /**

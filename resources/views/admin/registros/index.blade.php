@@ -46,6 +46,11 @@
                                 <th>Tutor</th>
                                 <th>Entrada</th>
                                 <th>Saída</th>
+                                <th>Categoria</th>
+                                <th>Day</th>
+                                <th>Night</th>
+                                <th>Fds</th>
+                                <th>Obs.</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -59,6 +64,11 @@
                                     <td>{{$registro->tutorAnimal->nome}}</td>
                                     <td>{{$registro->getEntradaDataAttribute()}}</td>
                                     <td>{{$registro->getSaidaDataAttribute()}}</td>
+                                    <td>{{$registro->animalCategoria->categoria}}</td>
+                                    <th>{{$registro->daycare}}</th>
+                                    <th>{{$registro->nightcare}}</th>
+                                    <th>{{$registro->fds}}</th>
+                                    <td>@if(!empty($registro->observacoes)){{$registro->observacoes}}@endif</td>
                                 </tr>
                             @endforeach
                             </tbody>

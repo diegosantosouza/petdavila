@@ -5,7 +5,8 @@
         <section class="dash_content_app">
 
             <header class="dash_content_app_header">
-                <h2 class="icon-search">Tutor: {{$tutor->nome}} <h3>Registros {{'('.$inicio . ' - ' . $termino.')'}}</h3></h2>
+                <h2 class="icon-search">Tutor: {{$tutor->nome}} <h3>
+                        Registros {{'('.$inicio . ' - ' . $termino.')'}}</h3></h2>
 
                 <div class="dash_content_app_header_actions">
                     <nav class="dash_content_app_breadcrumb">
@@ -45,6 +46,10 @@
                                 <th>Tutor</th>
                                 <th>Entrada</th>
                                 <th>Saída</th>
+                                <th>Day</th>
+                                <th>Night</th>
+                                <th>Fds</th>
+                                <th>Obs.</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -58,6 +63,10 @@
                                     <td>{{$busca->tutorAnimal->nome}}</td>
                                     <td>{{$busca->getEntradaDataAttribute()}}</td>
                                     <td>{{$busca->getSaidaDataAttribute()}}</td>
+                                    <td>{{$busca->daycare}}</td>
+                                    <td>{{$busca->nightcare}}</td>
+                                    <td>{{$busca->fds}}</td>
+                                    <td>@if(!empty($busca->observacoes)){{$busca->observacoes}}@endif</td>
                                 </tr>
                             @endforeach
                             </tbody>

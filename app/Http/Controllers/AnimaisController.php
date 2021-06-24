@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Animais;
+use App\Categorias;
 use App\Donos;
 use App\Support\Cropper;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class AnimaisController extends Controller
      */
     public function index()
     {
-        $animais = Animais::all();
+        $animais = Animais::with(['donosAnimal','categoriaAnimal'])->get();
         return view('admin.animais.index', ['animais'=>$animais]);
     }
 
@@ -29,7 +30,7 @@ class AnimaisController extends Controller
      */
     public function create(Donos $id)
     {
-        dd($id);
+
     }
 
     /**
@@ -56,7 +57,7 @@ class AnimaisController extends Controller
      */
     public function show($id)
     {
-        $animal = Animais::where('id', $id)->with(['donosAnimal','animalRegistros'])->first();
+        $animal = Animais::where('id', $id)->with(['donosAnimal','animalRegistros', 'categoriaAnimal'])->first();
         return view('admin.animais.show', ['animal'=>$animal]);
     }
 
@@ -68,8 +69,9 @@ class AnimaisController extends Controller
      */
     public function edit($id)
     {
-        $animal = Animais::where('id', $id)->first();
-        return view('admin.animais.edit', ['animal' => $animal]);
+        $animal = Animais::where('id', $id)->with(['categoriaAnimal'])->first();
+        $categorias = Categorias::all();
+        return view('admin.animais.edit', ['animal' => $animal, 'categorias'=>$categorias]);
     }
 
     /**

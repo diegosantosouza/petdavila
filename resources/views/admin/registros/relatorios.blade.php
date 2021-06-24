@@ -124,6 +124,10 @@
                             <th>Tutor</th>
                             <th>Entrada</th>
                             <th>Saida</th>
+                            <th>Day</th>
+                            <th>Night</th>
+                            <th>Fds</th>
+                            <th>Obs.</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -137,6 +141,10 @@
                                 <td>{{$busca->tutorAnimal->nome}}</td>
                                 <td>{{$busca->getEntradaDataAttribute()}}</td>
                                 <td>{{$busca->getSaidaDataAttribute()}}</td>
+                                <td>{{$busca->daycare}}</td>
+                                <td>{{$busca->nightcare}}</td>
+                                <td>{{$busca->fds}}</td>
+                                <td>@if(!empty($busca->observacoes)){{$busca->observacoes}}@endif</td>
                             </tr>
                         @endforeach
                         </tbody>

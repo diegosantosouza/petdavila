@@ -43,6 +43,7 @@
                                 <th>Nome</th>
                                 <th>Raça</th>
                                 <th>Tutor</th>
+                                <th>Categoria</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                     <td>{{$animal->nome}}</a></td>
                                     <td>{{$animal->raca}}</td>
                                     <td>{{$animal->donosAnimal->nome}}</td>
+                                    <td>@if(!empty($animal->categoriaAnimal->categoria)){{$animal->categoriaAnimal->categoria}}@endif</td>
                                     <td class="text-right">
                                         <a class="btn btn-blue icon-eye"
                                            href="{{ route('animais.show', ['animai'=>$animal->id]) }}"></a>

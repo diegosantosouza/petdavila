@@ -39,12 +39,31 @@
                     @method('PUT')
                     <div class="nav_tabs_content">
                         <div id="tutor">
+                            <div class="label_g2">
+                                <label class="label">
+                                    <span class="legend">*Nome:</span>
+                                    <input type="text" name="nome" value="{{ old('nome') ?? $animal->nome }}"/>
+                                </label>
 
-                            <label class="label">
-                                <span class="legend">*Nome:</span>
-                                <input type="text" name="nome" value="{{ old('nome') ?? $animal->nome }}"/>
-                            </label>
-
+                                <label class="label">
+                                    <span>Categoria:</span>
+                                    <select name="categoria_id" class="select2">
+                                        @foreach($categorias as $categoria)
+                                            @if(empty($animal->categoriaAnimal->id))
+                                                <option
+                                                    value="{{$categoria->id}}" {{ (old('categoria_id') == $categoria->id ? 'selected' :  '') }}>
+                                                    {{$categoria->categoria}}
+                                                </option>
+                                            @else
+                                            <option
+                                                value="{{$categoria->id}}" {{ (old('categoria_id') == $categoria->id ? 'selected' : ($animal->categoriaAnimal->id == $categoria->id ? 'selected' : '')) }}>
+                                                {{$categoria->categoria}}
+                                            </option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </label>
+                            </div>
 
                             <div class="label_g2">
                                 <label class="label">
@@ -53,13 +72,14 @@
                                            value="{{ old('raca') ?? $animal->raca }}"/>
                                 </label>
 
-
-                                <div class="card mx-auto" >
-                                    <img class="dash_sidebar_user_thumb" alt="foto" src="{{url(asset($animal->url_foto))}}">
+                                <div class="card mx-auto">
+                                    <img class="dash_sidebar_user_thumb" alt="foto"
+                                         src="{{url(asset($animal->url_foto))}}">
                                     <div class="card-body">
                                         <label class="label">
                                             <span class="legend">Foto</span>
-                                            <input type="file" name="foto" value="{{ old('foto') ?? $animal->foto }}">
+                                            <input type="file" name="foto"
+                                                   value="{{ old('foto') ?? $animal->foto }}">
                                         </label>
                                     </div>
                                 </div>
@@ -71,7 +91,8 @@
                     <div class="text-right mt-2">
                         <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
                         </button>
-                        <button type="button" id="myModal" class="btn btn-large btn-red icon-trash" data-toggle="modal"
+                        <button type="button" id="myModal" class="btn btn-large btn-red icon-trash"
+                                data-toggle="modal"
                                 data-target="#deleteModal">Deletar
                         </button>
                     </div>

@@ -6,6 +6,8 @@ use App\Animais;
 use App\Donos;
 use App\Http\Requests\Admin\RegistroRequest;
 use App\Registros;
+use Carbon\Carbon;
+use Carbon\Traits\Creator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -30,12 +32,12 @@ class RegistrosController extends Controller
     public function gerar(Request $request)
     {
         if ($request->mes) {
-            $buscas = Registros::whereYear('entrada', '=', date("Y"))->whereMonth('entrada', '=', $request->mes)->get();
+            $buscas = Registros::whereYear('entrada', '=', date("Y"))->whereMonth('entrada', '=', $request->mes)->with(['registrosAnimal', 'tutorAnimal'])->get();
             return view('admin.registros.relatorios', ['buscas' => $buscas, 'mes' => $request->mes]);
         }
 
         if ($request->ano) {
-            $buscas = Registros::whereYear('entrada', '=', $request->ano)->get();
+            $buscas = Registros::whereYear('entrada', '=', $request->ano)->with(['registrosAnimal', 'tutorAnimal'])->get();
             return view('admin.registros.relatorios', ['buscas' => $buscas, 'ano' => $request->ano]);
         }
 
@@ -46,7 +48,7 @@ class RegistrosController extends Controller
             if (empty($request->data_termino)) {
                 $request->data_termino = date('d/m/Y');
             }
-            $buscas = Registros::where('entrada', '>=', $this->convertStringToDate($request->data_inicio))->where('saida', '<=', $this->convertStringToDate($request->data_termino))->orWhere('saida', null)->get();
+            $buscas = Registros::where('entrada', '>=', $this->convertStringToDate($request->data_inicio))->where('saida', '<=', $this->convertStringToDate($request->data_termino))->orWhere('saida', null)->with(['registrosAnimal', 'tutorAnimal'])->get();
             return view('admin.registros.relatorios', ['buscas' => $buscas, 'inicio' => $request->data_inicio, 'termino' => $request->data_termino]);
 
         }
@@ -61,12 +63,13 @@ class RegistrosController extends Controller
             if (empty($request->data_termino)) {
                 $request->data_termino = date('d/m/Y');
             }
-            $tutor = Donos::where('id', $request->tutor_id)->first();
+//            $tutor = Donos::where('id', $request->tutor_id)->with(['animaisDono', 'registrosTutor'])->first();
             if (!empty($request->animal_id)) {
-                $animal = Animais::where('id', $request->animal_id)->first();
-                $buscas = $animal->animalRegistros()->where('entrada', '>=', $this->convertStringToDate($request->data_inicio))->where('entrada', '<=', $this->convertStringToDate($request->data_termino))->get();
+                $tutor = Donos::where('id', $request->tutor_id)->first();
+                $buscas = Registros::where('animal_id', $request->animal_id)->where('entrada', '>=', $this->convertStringToDate($request->data_inicio))->where('entrada', '<=', $this->convertStringToDate($request->data_termino))->with(['registrosAnimal', 'tutorAnimal'])->get();
                 return view('admin.registros.tutor', ['tutor' => $tutor, 'buscas' => $buscas, 'inicio' => $request->data_inicio, 'termino' => $request->data_termino]);
             }
+            $tutor = Donos::where('id', $request->tutor_id)->first();
             $buscas = $tutor->registrosTutor()->where('entrada', '>=', $this->convertStringToDate($request->data_inicio))->where('entrada', '<=', $this->convertStringToDate($request->data_termino))->get();
             return view('admin.registros.tutor', ['tutor' => $tutor, 'buscas' => $buscas, 'inicio' => $request->data_inicio, 'termino' => $request->data_termino]);
         }
@@ -79,7 +82,7 @@ class RegistrosController extends Controller
 
     public function index()
     {
-        $registros = Registros::whereYear('entrada', '=', date('Y'))->get();;
+        $registros = Registros::whereYear('entrada', '=', date('Y'))->with(['registrosAnimal', 'tutorAnimal', 'animalCategoria'])->get();;
         return view('admin.registros.index', ['registros' => $registros]);
     }
 
@@ -90,8 +93,16 @@ class RegistrosController extends Controller
      */
     public function create()
     {
-        $registros = Registros::where('saida', null)->get();
-        return view('admin.registros.create', ['registros' => $registros]);
+        $date = Carbon::now();
+//        $date = $this->diaria('2021-06-12 07:46:00', '2021-06-17 05:46:19');
+        $reg = Registros::where('saida', null)->with(['registrosAnimal', 'tutorAnimal'])->get();
+        foreach ($reg as $registros) {
+            $cont = $registros->diaria($registros->entrada, $date);
+            $registros->daycare = $cont->daycare;
+            $registros->nightcare = $cont->nightcare;
+            $registros->fds = $cont->fds;
+        }
+        return view('admin.registros.create', ['reg' => $reg]);
     }
 
     /**
@@ -102,7 +113,6 @@ class RegistrosController extends Controller
      */
     public function store(RegistroRequest $request)
     {
-
         $animal = Animais::where('id', $request->animal_id)->first();
         if ($animal == false) {
             return redirect()->back()->with(['color' => 'orange', 'message' => 'Entrada não efetuada, ID inválido.']);
@@ -129,7 +139,13 @@ class RegistrosController extends Controller
 //            }
 
 //            if ($diferenca->i > 10) {
+            $date = Carbon::now();
+            $cont = $registro->diaria($registro->entrada, $date);
+
             $registro->saida = new \DateTime();
+            $registro->daycare = $cont->daycare;
+            $registro->nightcare = $cont->nightcare;
+            $registro->fds = $cont->fds;
             $registro->save();
             return redirect()->route('registros.create')->with(['animal' => $animal, 'color' => 'green', 'message' => 'Saída efetuada.']);
 //            }
@@ -156,7 +172,7 @@ class RegistrosController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -168,7 +184,13 @@ class RegistrosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        var_dump($request->all(), $id);
+        $registro = Registros::where('id', $id)->first();
+        $registro->observacoes = $request->observacoes;
+        $registro->save();
+
+        return redirect()->route('registros.create')->with(['color' => 'green', 'message' => 'Observação criada.']);
+
+
     }
 
     /**
