@@ -143,9 +143,9 @@ html, body {
 /** RIGHT */
 .dash_login_right {
   flex-basis: 60%;
-  background: url("../images/login.svg") center/cover no-repeat;
+  background: url("../images/pet.jpg") center/cover no-repeat;
   padding: 30px 0;
-  background-size: 60%;
+  background-size: 70%;
 }
 
 /** RESPONSIVE */

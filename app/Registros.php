@@ -143,6 +143,7 @@ class Registros extends Model
         return date('d/m/Y H:i', strtotime($this->entrada));
     }
 
+
     public function getSaidaDataAttribute()
     {
         if (empty($this->saida)) {
@@ -152,23 +153,22 @@ class Registros extends Model
         return date('d/m/Y H:i', strtotime($this->saida));
     }
 
-//    public function setdaycareAttribute($value)
-//    {
-//        $this->attributes['daycare'] = ($value === true || $value === 'on' ? 1 : null);
-//    }
-//
-//    public function setnightcareAttribute($value)
-//    {
-//        $this->attributes['nightcare'] = ($value === true || $value === 'on' ? 1 : null);
-//    }
-//
-//    public function sethotelAttribute($value)
-//    {
-//        $this->attributes['hotel'] = ($value === true || $value === 'on' ? 1 : null);
-//    }
-//
-//    public function setfdsAttribute($value)
-//    {
-//        $this->attributes['fds'] = ($value === true || $value === 'on' ? 1 : null);
-//    }
+    private function convertStringToDate(?string $param)
+    {
+        if(empty($param)){
+            return null;
+        }
+
+        list($day, $month, $year) = explode('/', $param);
+        return (new \DateTime($year . '-' . $month . '-' . $day))->format('Y-m-d H:i:s');
+    }
+
+    private function clearField(?string $param)
+    {
+        if(empty($param)){
+            return '';
+        }
+
+        return str_replace(['.', '-', '/', '(', ')', ' '], '', $param);
+    }
 }

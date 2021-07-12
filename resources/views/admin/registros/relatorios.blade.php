@@ -128,6 +128,9 @@
                             <th>Night</th>
                             <th>Fds</th>
                             <th>Obs.</th>
+                            @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
+                                <th></th>
+                            @endif
                         </tr>
                         </thead>
                         <tbody>
@@ -145,6 +148,12 @@
                                 <td>{{$busca->nightcare}}</td>
                                 <td>{{$busca->fds}}</td>
                                 <td>@if(!empty($busca->observacoes)){{$busca->observacoes}}@endif</td>
+                                @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
+                                    <td class="text-right">
+                                        <a class="btn btn-green icon-pencil"
+                                           href="{{ route('registros.edit', ['registro'=>$busca->id]) }}"></a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody>

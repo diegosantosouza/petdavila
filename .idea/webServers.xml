@@ -3,9 +3,9 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="75fba8a4-fc50-4b54-8380-01e990859a34" name="clinica" url="https://clinicaperitas.ml">
-        <fileTransfer accessType="SFTP" host="34.123.181.146" port="22" sshConfigId="61d60f2a-c755-451c-989f-a2cf53dba381" sshConfig="root@34.123.181.146:22 key" keyPair="true">
+        <fileTransfer accessType="SFTP" host="35.227.154.99" port="22" sshConfigId="e20111fb-4151-4aeb-8dc6-1e72dcf2c194" sshConfig="root@35.227.154.99:22 key" keyPair="true">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>

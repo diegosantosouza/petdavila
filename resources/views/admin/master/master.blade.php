@@ -80,6 +80,7 @@
                     <li class=""><a href="{{ route('registros.create') }}">Entrada</a></li>
 
                     <li class=""><a href="{{ route('registros.relatorios') }}">Relatórios</a></li>
+
                 </ul>
             </li>
 

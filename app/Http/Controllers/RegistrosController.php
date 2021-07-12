@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Carbon\Traits\Creator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class RegistrosController extends Controller
@@ -82,7 +83,7 @@ class RegistrosController extends Controller
 
     public function index()
     {
-        $registros = Registros::whereYear('entrada', '=', date('Y'))->with(['registrosAnimal', 'tutorAnimal', 'animalCategoria'])->get();;
+        $registros = Registros::whereYear('entrada', '=', date('Y'))->with(['registrosAnimal', 'tutorAnimal', 'animalCategoria'])->latest()->take(500)->get();;
         return view('admin.registros.index', ['registros' => $registros]);
     }
 
@@ -172,7 +173,11 @@ class RegistrosController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+        if (Auth::user()->admin == 1) {
+            $registro = Registros::where('id', $id)->with(['registrosAnimal', 'tutorAnimal'])->first();
+            return view('admin.registros.edit', ['registro' => $registro]);
+        }
+
     }
 
     /**
@@ -184,6 +189,25 @@ class RegistrosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Auth::user()->admin == 1) {
+            $registro = Registros::where('id', $id)->first();
+            $registro->fill($request->all());
+            $registro->entrada = str_replace('T', ' ', $request->entrada);
+//            $registro->entrada = \DateTime::createFromFormat('d/m/Y H:i', $request->entrada);
+            if (!empty($registro->saida)) {
+                $registro->saida = str_replace('T', ' ', $request->saida);
+//                $registro->saida = \DateTime::createFromFormat('d/m/Y H:i', $request->saida);
+            }
+
+            $cont = $registro->diaria($registro->entrada, $registro->saida);
+            $registro->daycare = $cont->daycare;
+            $registro->nightcare = $cont->nightcare;
+            $registro->fds = $cont->fds;
+
+            $registro->save();
+            return redirect()->back()->with(['color' => 'green', 'message' => 'Editado com sucesso.']);
+        }
+
         $registro = Registros::where('id', $id)->first();
         $registro->observacoes = $request->observacoes;
         $registro->save();
