@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categorias;
 use App\Donos;
+use App\Financeiro;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\DonosRequest as DonosRequest;
 
@@ -67,7 +68,12 @@ class DonosController extends Controller
     public function edit($id)
     {
         $donos = Donos::where('id', $id)->first();
-        return view('admin.donos.edit', ['tutore' => $donos]);
+        $registros = Financeiro::where('donos_id', $donos->id)->latest()->take(30)->get();
+        $conta = 0;
+        foreach ($registros as $financeiro){
+            $conta += $financeiro->operador.$financeiro->valor;
+        }
+        return view('admin.donos.edit', ['tutore' => $donos, 'registros'=>$registros, 'conta'=>$conta]);
     }
 
     /**

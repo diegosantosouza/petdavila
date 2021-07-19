@@ -23,6 +23,11 @@ class Donos extends Model
         return $this->hasManyThrough(Registros::class, Animais::class, 'donos_id', 'animal_id', 'id','id');
     }
 
+    public function financeiroDono()
+    {
+        return $this->hasMany(Financeiro::class, 'donos_id', 'id');
+    }
+
     public function setCpfAttribute($value)
     {
         $this->attributes['cpf'] = $this->clearField($value);

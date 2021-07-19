@@ -63,6 +63,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('registros/relatorios/relatoriostutor', 'RegistrosController@relatoriosTutor')->name('registros.relatoriosTutor');
 
     Route::resource('registros', 'RegistrosController');
-
-
+    /**
+     * Rotas para Financeiro
+     */
+    Route::post('financeiro/guardar', 'FinanceiroController@store')->name('financeiro.store');
+    Route::get('financeiro/mostar/{id}', 'FinanceiroController@show')->name('financeiro.show');
 });
