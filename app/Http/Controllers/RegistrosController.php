@@ -20,6 +20,12 @@ class RegistrosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function observacoes()
+    {
+        $buscas = Registros::where('observacoes', '!=', null)->with(['registrosAnimal', 'tutorAnimal'])->latest()->take(100)->get();
+        return view('admin.registros.observacoes', ['buscas'=>$buscas]);
+    }
+
     private function convertStringToDate(?string $param)
     {
         if (empty($param)) {
@@ -83,7 +89,7 @@ class RegistrosController extends Controller
 
     public function index()
     {
-        $registros = Registros::whereYear('entrada', '=', date('Y'))->with(['registrosAnimal', 'tutorAnimal', 'animalCategoria'])->latest()->take(500)->get();;
+        $registros = Registros::whereYear('entrada', '=', date('Y'))->with(['registrosAnimal', 'tutorAnimal', 'animalCategoria'])->latest()->take(500)->get();
         return view('admin.registros.index', ['registros' => $registros]);
     }
 

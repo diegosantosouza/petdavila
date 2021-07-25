@@ -81,6 +81,8 @@
 
                     <li class=""><a href="{{ route('registros.relatorios') }}">Relatórios</a></li>
 
+                    <li class=""><a href="{{ route('registros.observacoes') }}">Obs.</a></li>
+
                 </ul>
             </li>
 

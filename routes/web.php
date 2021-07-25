@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth']], function () {
     /**
      * Rotas para Registros
      */
+    Route::get('registros/observacoes', 'RegistrosController@observacoes')->name('registros.observacoes');
+
     Route::get('registros/relatorios', 'RegistrosController@relatorios')->name('registros.relatorios');
 
     Route::post('registros/relatorios/gerar', 'RegistrosController@gerar')->name('registros.gerar');
