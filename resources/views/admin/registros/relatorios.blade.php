@@ -66,7 +66,7 @@
                             <div class="info">
 
                                 <label class="label">
-                                    <input type="text" name="ano" class=""
+                                    <input type="text" name="ano" id="ano" class=""
                                            value="{{ old('ano') }}"/>
                                 </label>
                             </div>
@@ -163,4 +163,10 @@
         @endif
     </section>
 @endsection
-
+@section('js')
+    <script>
+        $('document').ready(function () {
+            $('#ano').mask('0000');
+        })
+    </script>
+@endsection

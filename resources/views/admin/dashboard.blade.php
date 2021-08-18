@@ -22,6 +22,13 @@
                         <h4 class="icon-calendar">Este mês</h4>
                         <h1 class="text-center mt-2 mb-2">{{$mes}}</h1>
                     </article>
+
+                    <article class="users radius mt-1">
+                        <h4 class="">Registros</h4>
+                        <canvas id="bar-chart"
+                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </article>
+
                 </section>
             </div>
         </section>
@@ -65,6 +72,77 @@
             @endif
         </section>
 
-
     </div>
+@endsection
+
+@section('js')
+    <script src="{{ url('backend/assets/js/chart/chart.min.js')}}"></script>
+    <script>
+        $('document').ready(function () {
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: "{{route('admin.chartmeses')}}",
+                type: 'get',
+                dataType: "json",
+                data: {
+                    _token: _token,
+                },
+                success: function (data) {
+                    var animal_id = [];
+                    var animal_mes = [];
+                    var animal_unico = [];
+                    var animal_frequencia = [];
+                    var mes = [];
+                    for (var i = 0; i < data.length; i++) {
+                        var dt = new Date(data[i].entrada);
+                        var dt1 = `${dt.getFullYear()}` + "/" + `${dt.getMonth() + 1}`;
+
+                        if ($.inArray(data[i].animal_id, animal_id) == -1) {
+                            animal_id.push(data[i].animal_id);
+                        }
+                        animal_mes.push(dt1)
+
+                        if ($.inArray(dt1, mes) == -1) {
+                            mes.push(dt1)
+                        }
+                    }
+                    const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+
+                    for (var i = 0; i < mes.length; i++) {
+                        animal_frequencia.push(countOccurrences(animal_mes, mes[i]));
+                    }
+
+                    // data.forEach(animalMes);
+                    grafico(mes, animal_mes, animal_id, animal_frequencia, animal_unico)
+                }
+            });
+
+            function grafico(mes, animal_mes, animal_id, animal_frequencia, animal_unico) {
+
+                // Bar chart
+
+                new Chart(document.getElementById("bar-chart"), {
+                    type: 'bar',
+                    data: {
+                        labels: mes,
+                        datasets: [
+                            {
+                                label: "Entradas",
+                                backgroundColor: ["#3e95cd"],
+                                data: animal_frequencia
+                            }
+                        ]
+                    },
+                    options: {
+                        legend: {display: false},
+                        title: {
+                            display: true,
+                            text: 'Predicted world population (millions) in 2050'
+                        }
+                    }
+                });
+            }
+        })
+    </script>
 @endsection

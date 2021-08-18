@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('admin/logout', 'AuthController@logout')->name('admin.logout');
 
+    Route::get('admin/mesesGet', 'AuthController@chartmeses')->name('admin.chartmeses');
+
     /**
      * User create edit delete
      */
