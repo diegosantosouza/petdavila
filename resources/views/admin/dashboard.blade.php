@@ -107,19 +107,34 @@
                             mes.push(dt1)
                         }
                     }
+
+                    function contagemAnimal(mes) {
+                        var cont = [];
+                        for (var i = 0; i < data.length; i++) {
+                            var dt = new Date(data[i].entrada);
+                            var dt1 = `${dt.getFullYear()}` + "/" + `${dt.getMonth() + 1}`;
+                            if (dt1 === mes) {
+                                if ($.inArray(data[i].animal_id, cont) == -1) {
+                                    cont.push(data[i].animal_id)
+                                }
+                            }
+                        }
+                        animal_unico.push(cont.length)
+                    }
+
+                    mes.forEach(contagemAnimal)
+
                     const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 
                     for (var i = 0; i < mes.length; i++) {
                         animal_frequencia.push(countOccurrences(animal_mes, mes[i]));
                     }
 
-                    // data.forEach(animalMes);
                     grafico(mes, animal_mes, animal_id, animal_frequencia, animal_unico)
                 }
             });
 
             function grafico(mes, animal_mes, animal_id, animal_frequencia, animal_unico) {
-
                 // Bar chart
 
                 new Chart(document.getElementById("bar-chart"), {
@@ -131,6 +146,11 @@
                                 label: "Entradas",
                                 backgroundColor: ["#3e95cd"],
                                 data: animal_frequencia
+                            },
+                            {
+                                label: "Animais",
+                                backgroundColor: ['#f56954'],
+                                data: animal_unico
                             }
                         ]
                     },
