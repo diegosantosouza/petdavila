@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 
+
 Route::get('/', 'AuthController@showLoginForm')->name('admin.login');
 Route::post('login/do', 'AuthController@login')->name('admin.login.do');
 
