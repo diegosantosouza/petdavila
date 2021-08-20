@@ -39,8 +39,7 @@ class AuthController extends Controller
         $agora = Registros::where('saida', null)->count();
         $hoje = Registros::whereDate('entrada', '=', date('Y-m-d'))->count();
         $mes = Registros::whereYear('entrada', '=', date("Y"))->whereMonth('entrada', '=', date("m"))->count();
-        $registros = Registros::latest()->take(50)->with(['registrosAnimal', 'tutorAnimal'])->get();
-
+        $registros = Registros::whereDate('entrada', date('Y-m-d'))->with(['registrosAnimal', 'tutorAnimal'])->get();
 
         return view('admin.dashboard', ['agora' => $agora, 'hoje' => $hoje, 'mes' => $mes, 'registros' => $registros]);
 

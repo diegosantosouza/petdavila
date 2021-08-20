@@ -35,7 +35,7 @@
 
         <section class="dash_content_app" style="margin-top: 40px;">
             <header class="dash_content_app_header">
-                <h2 class="icon-bell-o">Últimas entradas</h2>
+                <h2 class="icon-bell-o">Entradas Hoje</h2>
             </header>
             @if(!empty($registros))
 
