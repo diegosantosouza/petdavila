@@ -25,7 +25,7 @@ nginx:
 ./docker-compose/nginx/petdavila.conf
 ```
 
-### Configuração das variáveis globais
+### Configuração das variáveis de ambiente
 > .env
 ```
 APP_NAME=Pet da vila
@@ -85,7 +85,7 @@ docker-compose down -v
 > http://server_domain_or_IP:8000/register
 
 ### Atenção por padrão o novo usuário criado não tem permissões de Administrador, para atribuir privilégios a um usuário você deve acesar o banco de dados disponivel por algum cliente SQL e definir na tabela 'users' coluna 'admin' para 'true' ou 1:
-> porta: 3307
+> localhost porta: 3307
 
 
 #### Dúvidas, Sugestões:
