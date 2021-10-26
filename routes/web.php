@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * Rotas de cadastro
  */
-//Auth::routes();
+Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
