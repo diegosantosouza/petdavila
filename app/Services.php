@@ -16,4 +16,9 @@ class Services extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function priceService()
+    {
+        return $this->hasMany(Prices::class, 'service_id', 'id');
+    }
 }
