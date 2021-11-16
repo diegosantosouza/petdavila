@@ -16,4 +16,14 @@ class Purchases extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function servicePurchase()
+    {
+        return $this->hasOne(Services::class, 'id', 'service_id');
+    }
+
+    public function pricePurchase()
+    {
+        return $this->hasManyThrough(Prices::class, Services::class);
+    }
 }
