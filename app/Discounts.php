@@ -16,4 +16,9 @@ class Discounts extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function donoDiscount()
+    {
+        return $this->hasMany(Donos::class, 'tutor_id');
+    }
 }
