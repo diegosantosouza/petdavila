@@ -17,4 +17,9 @@ class Recurrences extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function serviceRecurrence()
+    {
+        return $this->hasMany(Services::class, 'id', 'service_id');
+    }
 }
