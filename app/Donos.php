@@ -28,6 +28,21 @@ class Donos extends Model
         return $this->hasMany(Financeiro::class, 'donos_id', 'id');
     }
 
+    public function purchaseDono()
+    {
+        return $this->hasMany(Purchases::class, 'tutor_id', 'id');
+    }
+
+    public function recurrenceDono()
+    {
+        return $this->hasMany(Recurrences::class, 'tutor_id', 'id');
+    }
+
+    public function discountDono()
+    {
+        return $this->hasMany(Discounts::class, 'tutor_id', 'id');
+    }
+
     public function setCpfAttribute($value)
     {
         $this->attributes['cpf'] = $this->clearField($value);
