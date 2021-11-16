@@ -19,6 +19,6 @@ class Discounts extends Model
 
     public function donoDiscount()
     {
-        return $this->hasMany(Donos::class, 'tutor_id');
+        return $this->belongsTo(Donos::class, 'tutor_id');
     }
 }
