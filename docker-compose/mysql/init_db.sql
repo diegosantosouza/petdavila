@@ -44,6 +44,23 @@ CREATE TABLE IF NOT EXISTS `categorias` (
 
 -- Exportação de dados foi desmarcado.
 
+-- Copiando estrutura para tabela app.discount
+CREATE TABLE IF NOT EXISTS `discount` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tutor_id` bigint(20) unsigned NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `value` decimal(10,2) NOT NULL,
+  `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `discount_tutor_id_foreign` (`tutor_id`),
+  CONSTRAINT `discount_tutor_id_foreign` FOREIGN KEY (`tutor_id`) REFERENCES `donos` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Exportação de dados foi desmarcado.
+
 -- Copiando estrutura para tabela app.donos
 CREATE TABLE IF NOT EXISTS `donos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -92,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Exportação de dados foi desmarcado.
 
@@ -102,6 +119,61 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Exportação de dados foi desmarcado.
+
+-- Copiando estrutura para tabela app.price
+CREATE TABLE IF NOT EXISTS `price` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `service_id` bigint(20) unsigned NOT NULL,
+  `value` decimal(10,2) NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `price_service_id_foreign` (`service_id`),
+  CONSTRAINT `price_service_id_foreign` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Exportação de dados foi desmarcado.
+
+-- Copiando estrutura para tabela app.purchase
+CREATE TABLE IF NOT EXISTS `purchase` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tutor_id` bigint(20) unsigned NOT NULL,
+  `service_id` bigint(20) unsigned NOT NULL,
+  `date` datetime NOT NULL,
+  `value` decimal(10,2) NOT NULL,
+  `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `purchase_tutor_id_foreign` (`tutor_id`),
+  KEY `purchase_service_id_foreign` (`service_id`),
+  CONSTRAINT `purchase_service_id_foreign` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`),
+  CONSTRAINT `purchase_tutor_id_foreign` FOREIGN KEY (`tutor_id`) REFERENCES `donos` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Exportação de dados foi desmarcado.
+
+-- Copiando estrutura para tabela app.recurrence
+CREATE TABLE IF NOT EXISTS `recurrence` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tutor_id` bigint(20) unsigned NOT NULL,
+  `service_id` bigint(20) unsigned NOT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime DEFAULT NULL,
+  `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `method` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `recurrence_tutor_id_foreign` (`tutor_id`),
+  KEY `recurrence_service_id_foreign` (`service_id`),
+  CONSTRAINT `recurrence_service_id_foreign` FOREIGN KEY (`service_id`) REFERENCES `service` (`id`),
+  CONSTRAINT `recurrence_tutor_id_foreign` FOREIGN KEY (`tutor_id`) REFERENCES `donos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Exportação de dados foi desmarcado.
@@ -123,6 +195,21 @@ CREATE TABLE IF NOT EXISTS `registros` (
   KEY `registros_animal_id_foreign` (`animal_id`),
   CONSTRAINT `registros_animal_id_foreign` FOREIGN KEY (`animal_id`) REFERENCES `animais` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1534 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Exportação de dados foi desmarcado.
+
+-- Copiando estrutura para tabela app.service
+CREATE TABLE IF NOT EXISTS `service` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `renew` int(11) NOT NULL,
+  `credit_days` int(11) DEFAULT NULL,
+  `status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Exportação de dados foi desmarcado.
 
