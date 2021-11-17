@@ -86,6 +86,10 @@
                 </ul>
             </li>
 
+            <li class="dash_sidebar_nav_item {{ isActive('finance')}}">
+                <a class="icon-usd" href="{{ route('finance.index') }}">Financeiro</a>
+            </li>
+
             <li class="dash_sidebar_nav_item"><a class="icon-reply" href="{{ route('admin.logout') }}">Sair</a></li>
 
 

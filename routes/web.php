@@ -73,4 +73,6 @@ Route::group(['middleware' => ['auth']], function () {
      */
     Route::post('financeiro/guardar', 'FinanceiroController@store')->name('financeiro.store');
     Route::get('financeiro/mostar/{id}', 'FinanceiroController@show')->name('financeiro.show');
+    
+    Route::resource('finance', 'FinanceController');
 });
