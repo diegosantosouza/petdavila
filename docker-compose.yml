@@ -11,6 +11,8 @@ services:
     container_name: petdavila-app
     restart: always
     working_dir: /var/www/
+    volumes:
+      - ./:/var/www
     networks:
       - petdavila
 
