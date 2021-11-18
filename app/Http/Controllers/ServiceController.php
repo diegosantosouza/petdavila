@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services;
+use App\Prices;
 use App\Http\Requests\Admin\ServicesRequest as ServicesRequest;
+use App\Http\Requests\Admin\PricesRequest as PricesRequest;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +21,16 @@ class ServiceController extends Controller
      */
     public function store(ServicesRequest $request)
     {
+        $today = new \DateTime();
+
         $service = new Services();
         $service->fill($request->all());
         $service->save();
+
+        $price = new Prices();
+        $price->fill(["service_id" => $service->id, "value" => $request->get("price"), "start" => $today]);
+        $price->save();
+
         return redirect()->route('service.index', ['id' => $service->id])->with(['color' => 'green', 'message' => 'Cadastrado com sucesso!']);
     }
 
