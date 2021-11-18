@@ -14,17 +14,7 @@ class FinanceController extends Controller
      */
     public function index()
     {
-        return view('admin.finance.show');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
+        //
     }
 
     /**
@@ -46,7 +36,27 @@ class FinanceController extends Controller
      */
     public function show()
     {
-        return view('admin.finance.show');
+        return view('admin.finance.purchase');
+    }
+
+    public function service()
+    {
+        return view('admin.finance.service');
+    }
+
+    public function purchase()
+    {
+        return view('admin.finance.purchase');
+    }
+
+    public function recurrence()
+    {
+        return view('admin.finance.recurrence');
+    }
+
+    public function create()
+    {
+        return view('admin.finance.createService');
     }
 
     /**

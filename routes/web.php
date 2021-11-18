@@ -74,5 +74,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('financeiro/guardar', 'FinanceiroController@store')->name('financeiro.store');
     Route::get('financeiro/mostar/{id}', 'FinanceiroController@show')->name('financeiro.show');
     
+    Route::get('finance/purchase', 'FinanceController@purchase')->name('finance.purchase');
+    Route::get('finance/recurrence', 'FinanceController@recurrence')->name('finance.recurrence');
+    Route::get('finance/service', 'FinanceController@service')->name('finance.service');
     Route::resource('finance', 'FinanceController');
+
 });

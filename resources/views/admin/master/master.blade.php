@@ -66,7 +66,7 @@
             </li>
 
             <li class="dash_sidebar_nav_item {{ isActive('animais')}}">
-                <a class="icon-users " href="{{ route('animais.index') }}">Animais</a>
+                <a class="icon-paw" href="{{ route('animais.index') }}">Animais</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('animais.index') }}">Ver Todos</a></li>
                 </ul>
@@ -87,7 +87,15 @@
             </li>
 
             <li class="dash_sidebar_nav_item {{ isActive('finance')}}">
-                <a class="icon-usd" href="{{ route('finance.index') }}">Financeiro</a>
+                <a class="icon-usd">Financeiro</a>
+                <ul class="dash_sidebar_nav_submenu">
+                    <li><a class="icon-credit-card" href="{{ route('finance.purchase') }}">Vendas</a></li>
+
+                    <li><a class="icon-calendar" href="{{ route('finance.recurrence') }}">Recorrências</a></li>
+
+                    <li><a class="icon-archive" href="{{ route('finance.service') }}">Serviços</a></li>
+
+                </ul>
             </li>
 
             <li class="dash_sidebar_nav_item"><a class="icon-reply" href="{{ route('admin.logout') }}">Sair</a></li>
