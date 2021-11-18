@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Services;
+use App\Http\Requests\Admin\ServicesRequest as ServicesRequest;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,9 +17,12 @@ class ServiceController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(ServicesRequest $request)
     {
-        //
+        $service = new Services();
+        $service->fill($request->all());
+        $service->save();
+        return redirect()->route('service.index', ['id' => $service->id])->with(['color' => 'green', 'message' => 'Cadastrado com sucesso!']);
     }
 
     public function index()
@@ -24,9 +30,9 @@ class ServiceController extends Controller
         return view('admin.service.index');
     }
 
-    public function show()
+    public function show($id)
     {
-        return view('admin.service.index');
+        return view('admin.service.show', ['id' => $id]);
     }
 
     public function create()

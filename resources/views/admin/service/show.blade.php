@@ -62,11 +62,17 @@
                                 </label>
                             </div>
 
-                            <div class="">
+                            <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">Descrição:</span>
                                     <input type="text" name="description" placeholder="Descrição do serviço"
                                            value="{{ old('description')  }}"/>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">*Preço:</span>
+                                    <input type="number" min="0.00" max="10000.00" step="0.01" name="price" placeholder="Preço do serviço"
+                                           value="{{ old('price')  }}"/>
                                 </label>
                             </div>
                         
