@@ -86,14 +86,14 @@
                 </ul>
             </li>
 
-            <li class="dash_sidebar_nav_item {{ isActive('finance')}}">
+            <li class="dash_sidebar_nav_item {{ isActive('finance') }} {{ isActive('service') }}" >
                 <a class="icon-usd">Financeiro</a>
                 <ul class="dash_sidebar_nav_submenu">
-                    <li><a class="icon-credit-card" href="{{ route('finance.purchase') }}">Vendas</a></li>
+                    <li class="{{ isActive('purchase') }}"><a class="icon-credit-card" href="{{ route('finance.purchase') }}">Vendas</a></li>
 
-                    <li><a class="icon-calendar" href="{{ route('finance.recurrence') }}">Recorrências</a></li>
+                    <li class="{{ isActive('recurrence') }}"><a class="icon-calendar" href="{{ route('finance.recurrence') }}">Recorrências</a></li>
 
-                    <li><a class="icon-archive" href="{{ route('finance.service') }}">Serviços</a></li>
+                    <li class="{{ isActive('service') }}"><a class="icon-archive" href="{{ route('service.index') }}">Serviços</a></li>
 
                 </ul>
             </li>

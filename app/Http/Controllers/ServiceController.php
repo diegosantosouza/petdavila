@@ -5,17 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class FinanceController extends Controller
+class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -28,30 +19,19 @@ class FinanceController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
+    public function index()
+    {
+        return view('admin.service.index');
+    }
+
     public function show()
     {
-        return view('admin.finance.purchase');
+        return view('admin.service.index');
     }
 
-    public function purchase()
+    public function create()
     {
-        return view('admin.finance.purchase');
-    }
-
-    public function recurrence()
-    {
-        return view('admin.finance.recurrence');
-    }
-
-    public function service_create()
-    {
-        return view('admin.finance.create');
+        return view('admin.service.create');
     }
 
     /**

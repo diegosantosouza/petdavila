@@ -13,7 +13,9 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('finance.index') }}">Financeiro</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('finance.service') }}">Serviços</a></li>
+                        <li><a href="{{ route('service.index') }}">Serviços</a></li>
+                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li><a href="{{ route('service.create') }}">Novo Serviço</a></li>
                     </ul>
                 </nav>
             </div>
@@ -36,7 +38,7 @@
                     </li>
                 </ul>
 
-                <form class="app_form" action="{{ route('finance.store') }}" method="post"
+                <form class="app_form" action="{{ route('service.store') }}" method="post"
                       enctype="multipart/form-data">
                     @csrf
 
@@ -70,7 +72,7 @@
                         
                             <div class="label_g2">
                                 <label class="label">
-                                    <span class="legend">*Recorrência:</span>
+                                    <span class="legend">Recorrência:</span>
                                     <input type="number" class="mask-doc" name="recurrence" placeholder="Repete em quantos dias"
                                            value="{{ old('recurrence') }}"/>
                                 </label>

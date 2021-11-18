@@ -76,7 +76,9 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::get('finance/purchase', 'FinanceController@purchase')->name('finance.purchase');
     Route::get('finance/recurrence', 'FinanceController@recurrence')->name('finance.recurrence');
-    Route::get('finance/service', 'FinanceController@service')->name('finance.service');
+    // Route::get('finance/service', 'ServiceController@index')->name('service.index');
     Route::resource('finance', 'FinanceController');
+    
+    Route::resource('service', 'ServiceController');
 
 });
