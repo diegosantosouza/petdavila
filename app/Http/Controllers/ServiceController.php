@@ -36,7 +36,8 @@ class ServiceController extends Controller
 
     public function index()
     {
-        return view('admin.service.index');
+        $services = Services::select('id', 'name', 'description', 'renew', 'credit_days', 'status')->get();
+        return view('admin.service.index', ['services' => $services]);
     }
 
     public function show($id)

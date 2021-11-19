@@ -21,58 +21,62 @@
             </div>
         </header>
 
-        <div class="dash_content_app_box">
-            @if($errors->all())
-                @foreach($errors->all() as $error)
-                    <div class="message message-orange">
-                        <p class="icon-asterisk">{{ $error }}</p>
+        @if(isset($services) && !empty($services))
+            <div class="dash_content_app_box">
+                @if($errors->all())
+                    @foreach($errors->all() as $error)
+                        <div class="message message-orange">
+                            <p class="icon-asterisk">{{ $error }}</p>
+                        </div>
+                    @endforeach
+                @endif
+
+                @if(session()->exists('message'))
+                    <div class="message message-{{session()->get('color')}}">
+                        <p class="icon-asterisk">{{ session()->get('message') }}</p>
                     </div>
-                @endforeach
-            @endif
+                @endif
 
-            @if(session()->exists('message'))
-                <div class="message message-{{session()->get('color')}}">
-                    <p class="icon-asterisk">{{ session()->get('message') }}</p>
-                </div>
-            @endif
-
-            <div id="purchase">
-                <table id="dataTable" class="nowrap stripe" width="100" style="width: 100% !important;">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Recorrência em dias</th>
-                        <th>Diárias</th>
-                        <th>Preço atual</th>
-                        <th>Status</th>
-                        @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                            <th></th>
-                        @endif
-                    </tr>
-                    </thead>
-                    <tbody>
+                <div id="service">
+                    <table id="dataTable" class="nowrap stripe" width="100" style="width: 100% !important;">
+                        <thead>
                         <tr>
-                            <td>ID</td>
-                            <td>Nome</td>
-                            <td>Descrição</td>
-                            <td>Recorrência em dias</td>
-                            <td>Diárias</td>
-                            <td>Preço atual</td>
-                            <td>Status</td>
-                                @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                                    <td class="text-right">
-                                        <a class="btn btn-red icon-trash"></a>
-                                        <a class="btn btn-green icon-pencil"></a>
-                                        <a class="btn btn-blue icon-search"></a>
-                                    </td>
-                                @endif
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Recorrência em dias</th>
+                            <th>Diárias</th>
+                            <th>Preço atual</th>
+                            <th>Status</th>
+                            @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
+                                <th></th>
+                            @endif
                         </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($services as $service)
+                                <tr>
+                                    <td>{{$service->id}}</td>
+                                    <td>{{$service->name}}</td>
+                                    <td>{{$service->description}}</td>
+                                    <td>{{$service->renew}}</td>
+                                    <td>{{$service->credit_days}}</td>
+                                    <td>Preço atual</td>
+                                    <td>{{$service->status}}</td>
+                                        @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
+                                            <td class="text-right">
+                                                <a class="btn btn-red icon-trash"></a>
+                                                <a class="btn btn-green icon-pencil"></a>
+                                                <a class="btn btn-blue icon-search"></a>
+                                            </td>
+                                        @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        @endif
     </section>
     
 @endsection
