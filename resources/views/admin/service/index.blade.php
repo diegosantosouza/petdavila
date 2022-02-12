@@ -65,8 +65,10 @@
                                     <td>{{$service->status}}</td>
                                         @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
                                             <td class="text-right">
-                                                <a class="btn btn-red icon-trash"></a>
-                                                <a class="btn btn-green icon-pencil"></a>
+                                                <a class="btn btn-red icon-trash"
+                                                   href="{{ route('service.destroy', ['service'=>$service->id]) }}"></a>
+                                                <a class="btn btn-green icon-pencil"
+                                                   href="{{ route('service.edit', ['service'=>$service->id]) }}"></a>
                                                 <a class="btn btn-blue icon-search"></a>
                                             </td>
                                         @endif
@@ -78,5 +80,5 @@
             </div>
         @endif
     </section>
-    
+
 @endsection
