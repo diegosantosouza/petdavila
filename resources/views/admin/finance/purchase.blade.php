@@ -11,9 +11,12 @@
                     <ul>
                         <li><a href="{{ route('admin') }}">Início</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('finance.index') }}">Vendas</a></li>
+                        <li><a href="{{ route('finance.index') }}">Financeiro</a></li>
+                        <li class="separator icon-angle-right icon-notext"></li>
+                        <li><a href="{{ route('finance.purchase') }}">Vendas</a></li>
                     </ul>
                 </nav>
+                <a href="{{ route('purchases.create') }}" class="btn btn-orange icon-user ml-1">Criar novo</a>
             </div>
         </header>
 
@@ -69,5 +72,5 @@
             </div>
         </div>
     </section>
-    
+
 @endsection

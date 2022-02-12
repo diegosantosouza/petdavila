@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
      * Rotas para Donos
      */
     Route::resource('tutores', 'DonosController');
+    Route::post('tutores/search', 'DonosController@search')->name('tutores.search');
+
     /**
      * Rotas para Animais
      */
@@ -60,25 +62,26 @@ Route::group(['middleware' => ['auth']], function () {
      * Rotas para Registros
      */
     Route::get('registros/observacoes', 'RegistrosController@observacoes')->name('registros.observacoes');
-
     Route::get('registros/relatorios', 'RegistrosController@relatorios')->name('registros.relatorios');
-
     Route::post('registros/relatorios/gerar', 'RegistrosController@gerar')->name('registros.gerar');
-
     Route::post('registros/relatorios/relatoriostutor', 'RegistrosController@relatoriosTutor')->name('registros.relatoriosTutor');
-
     Route::resource('registros', 'RegistrosController');
     /**
      * Rotas para Financeiro
      */
     Route::post('financeiro/guardar', 'FinanceiroController@store')->name('financeiro.store');
     Route::get('financeiro/mostar/{id}', 'FinanceiroController@show')->name('financeiro.show');
-    
+
     Route::get('finance/purchase', 'FinanceController@purchase')->name('finance.purchase');
     Route::get('finance/recurrence', 'FinanceController@recurrence')->name('finance.recurrence');
     // Route::get('finance/service', 'ServiceController@index')->name('service.index');
     Route::resource('finance', 'FinanceController');
-    
+
     Route::resource('service', 'ServiceController');
 
+    /**
+     * Purchases Routes
+     */
+    Route::post('purchases', 'PurchasesController@store')->name('purchases.store');
+    Route::get('purchases', 'PurchasesController@create')->name('purchases.create');
 });
