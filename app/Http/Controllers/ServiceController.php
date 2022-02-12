@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\PricesRequest as PricesRequest;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ServiceController extends Controller
 {
@@ -82,7 +83,12 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+//            Services::find($id)->delete();
+            return back()->with(['color' => 'green', 'message' => 'Serviço deletado.']);
+        } catch (Exception $exception) {
+            return back()->with(['color' => 'red', 'message' => 'Erro ao deletar serviço']);
+        }
     }
 
     public function get()

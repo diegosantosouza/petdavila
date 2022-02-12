@@ -65,11 +65,16 @@
                                     <td>{{$service->status}}</td>
                                         @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
                                             <td class="text-right">
-                                                <a class="btn btn-red icon-trash"
-                                                   href="{{ route('service.destroy', ['service'=>$service->id]) }}"></a>
-                                                <a class="btn btn-green icon-pencil"
-                                                   href="{{ route('service.edit', ['service'=>$service->id]) }}"></a>
-                                                <a class="btn btn-blue icon-search"></a>
+                                                <div class="d-flex">
+                                                    <form action="{{ route('service.destroy', ['service'=>$service->id]) }}" method="post" class="">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-red icon-trash"></button>
+                                                    </form>
+                                                    <a class="btn btn-green icon-pencil"
+                                                       href="{{ route('service.edit', ['service'=>$service->id]) }}"></a>
+                                                    <a class="btn btn-blue icon-search"></a>
+                                                </div>
                                             </td>
                                         @endif
                                 </tr>
