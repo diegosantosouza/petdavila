@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\ServicesRequest as ServicesRequest;
 use App\Http\Requests\Admin\PricesRequest as PricesRequest;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
@@ -38,9 +39,12 @@ class ServiceController extends Controller
     public function index()
     {
         //FIXME get the lastest price
-        $service_with_price = Services::leftJoin('price', 'service.id', '=', 'price.service_id')
-            ->select('service.id', 'service.name', 'service.description', 'service.renew',
-                     'service.credit_days', 'service.status', 'price.value')->get();
+        $query = "SELECT a.id, a.name, a.description, a.renew, a.credit_days, a.status, b.value
+        FROM service a
+        LEFT JOIN price b ON a.id = b.service_id
+        AND b.start = (SELECT MAX(c.start) FROM price c WHERE a.id = c.service_id)";
+
+       $service_with_price = DB::select(DB::raw($query));
 
         return view('admin.service.index', ['services' => $service_with_price]);
     }
@@ -64,7 +68,8 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Services::where('id', $id)->first();
-        return view('admin.service.edit', ['service'=>$service]);
+        $prices = Prices::where('service_id',$id)->get();
+        return view('admin.service.edit', ['service'=>$service, 'prices'=>$prices]);
     }
 
     /**
@@ -74,9 +79,21 @@ class ServiceController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ServicesRequest $request, $id)
     {
-        //
+        $today = new \DateTime();
+
+        $service = Services::where('id', $id)->first();
+        $service->fill($request->all());
+        $service->save();
+
+        if($request->old_price != $request->get("price")) {
+            $price = new Prices();
+            $price->fill(["service_id" => $service->id, "value" => intval($request->get("price")), "start" => $today]);
+            $price->save();
+        }
+
+        return redirect()->route('service.index', ['id' => $id])->with(['color' => 'green', 'message' => 'Modificado com sucesso!']);
     }
 
     /**

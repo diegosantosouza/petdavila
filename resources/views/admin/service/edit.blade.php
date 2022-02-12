@@ -38,9 +38,10 @@
                     </li>
                 </ul>
 
-                <form class="app_form" action="{{ route('service.update', ['service'=>$service->id]) }}" method="post"
-                      enctype="multipart/form-data">
+                <form class="app_form" enctype="multipart/form-data" method="post"
+                      action="{{ route('service.update', ['service'=>$service->id, 'old_price'=>$prices->first()->value]) }}">
                     @csrf
+                    @method('PUT')
 
                     <div class="nav_tabs_content">
                         <div id="tutor">
@@ -71,8 +72,8 @@
 
                                 <label class="label">
                                     <span class="legend">*Preço:</span>
-                                    <input type="number" min="0.00" max="10000.00" step="0.01" name="price" placeholder="Preço do serviço"
-                                           value="{{ old('price') ?? $service->price}}"/>
+                                    <input class="mask-money" type="text" name="price" placeholder="Preço do serviço"
+                                           value="{{ old('price') ?? $prices->first()->value}}"/>
                                 </label>
                             </div>
 
@@ -92,13 +93,34 @@
 
                         </div>
                     </div>
-
                     <div class="text-right mt-2">
-                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações
-                        </button>
+                        <button class="btn btn-large btn-green icon-check-square-o" type="submit">Salvar Alterações</button>
                     </div>
                 </form>
             </div>
         </div>
+
+        <h2 class="mt-1">Histórico de preços</h2>
+        <div class="dash_content_app_box">
+            <div class="nav">
+            <table id="dataTable" class="nowrap stripe" width="100" style="width: 100% !important;">
+                <thead>
+                    <tr>
+                        <th>Data de criação</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($prices as $price)
+                        <tr>
+                            <td>{{$price->start}}</td>
+                            <td>{{$price->value}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            </div>
+        </div>
+
     </section>
 @endsection
