@@ -61,7 +61,7 @@
                                     <td>{{$service->description}}</td>
                                     <td>{{$service->renew}}</td>
                                     <td>{{$service->credit_days}}</td>
-                                    <td>Preço atual</td>
+                                    <td>{{$service->value}}</td>
                                     <td>{{$service->status}}</td>
                                         @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
                                             <td class="text-right">

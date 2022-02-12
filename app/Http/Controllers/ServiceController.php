@@ -37,8 +37,12 @@ class ServiceController extends Controller
 
     public function index()
     {
-        $services = Services::select('id', 'name', 'description', 'renew', 'credit_days', 'status')->get();
-        return view('admin.service.index', ['services' => $services]);
+        //FIXME get the lastest price
+        $service_with_price = Services::leftJoin('price', 'service.id', '=', 'price.service_id')
+            ->select('service.id', 'service.name', 'service.description', 'service.renew',
+                     'service.credit_days', 'service.status', 'price.value')->get();
+
+        return view('admin.service.index', ['services' => $service_with_price]);
     }
 
     public function show($id)
