@@ -31,4 +31,13 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
+# Copy script file for artisan commands
+COPY ./docker-compose/app/entrypoint.sh /entrypoint.sh
+
+# Set permission
+RUN chmod +x /entrypoint.sh
+
+# Run script file
+ENTRYPOINT ["/entrypoint.sh"]
+
 USER $user

@@ -18,6 +18,9 @@ nginx:
 > .docker-compose.yml
 
 ```
+### configuração do entrypoint do app
+./docker-compose/app/entrypoint.sh 
+
 ### configuração do entrypoint para o db criar as tabelas
 ./docker-compose/mysql/init_db.sql 
 
@@ -59,15 +62,6 @@ Quando a compilação terminar, execute o ambiente em modo de segundo plano com:
 docker-compose up -d
 ```
 
-Agora, vamos executar o composer install para instalar as dependências do aplicativo:
-```
-docker-compose exec app composer install
-```
-
-A última coisa que precisamos fazer - antes de testar o aplicativo - é gerar uma chave única para o aplicativo com a artisan, a ferramenta de linha de comando do Laravel. Esta chave é usada para criptografar sessões de usuário e outros dados sensíveis:
-```
-docker-compose exec app php artisan key:generate
-```
 Agora, vá até seu navegador e acesse o nome de domínio ou endereço IP do seu servidor na porta 8000:
 ```
 http://server_domain_or_IP:8000
@@ -82,6 +76,12 @@ docker-compose down -v
 ```
 
 ## Cadastrando um novo usuário
+Por padrão o usuário teste tem os seguintes dados:
+```
+email = test@mail.com
+password = 123456789
+```
+Rota para criação de usuário:
 > http://server_domain_or_IP:8000/register
 
 ### Atenção por padrão o novo usuário criado não tem permissões de Administrador, para atribuir privilégios a um usuário você deve acesar o banco de dados disponivel por algum cliente SQL e definir na tabela 'users' coluna 'admin' para 'true' ou 1:

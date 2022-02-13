@@ -105,4 +105,14 @@ class DonosController extends Controller
 //        Donos::find($id)->delete();
 //        return redirect()->route('tutores.index')->with(['color' => 'green', 'message' => 'Tutor deletado.']);
     }
+
+    public function search(Request $request)
+    {
+        $tutores = Donos::orderby('nome', 'asc')->select(['id', 'nome'])->where('nome', 'like', $request->tutor_id . '%')->limit(5)->get();
+        $response = array();
+        foreach ($tutores as $dono) {
+            $response[] = array("value" => $dono->id, "label" => $dono->nome);
+        }
+        echo json_encode($response);
+    }
 }

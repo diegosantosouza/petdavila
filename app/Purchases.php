@@ -14,7 +14,9 @@ class Purchases extends Model
         'value',
         'status',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'discount',
+        'notes'
     ];
 
     public function servicePurchase()
