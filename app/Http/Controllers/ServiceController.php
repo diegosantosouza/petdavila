@@ -112,11 +112,6 @@ class ServiceController extends Controller
         }
     }
 
-    public function get()
-    {
-        //
-    }
-
     public function search(Request $request)
     {
         $services = Services::orderby('name', 'asc')->select(['id', 'name'])->where('name', 'like', $request->servicesSearch . '%')->latest();

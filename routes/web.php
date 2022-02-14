@@ -77,9 +77,14 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('finance/service', 'ServiceController@index')->name('service.index');
     Route::resource('finance', 'FinanceController');
 
-    Route::resource('service', 'ServiceController');
     Route::post('service', 'ServiceController@search')->name('service.search');
-
+    Route::post('service', 'ServiceController@store')->name('service.store');
+    Route::get('service', 'ServiceController@index')->name('service.index');
+    Route::get('service/{service}', 'ServiceController@show')->name('service.show');
+    Route::get('service/create', 'ServiceController@create')->name('service.create');
+    Route::get('service/{service}/edit', 'ServiceController@edit')->name('service.edit');
+    Route::put('service/{service}', 'ServiceController@update')->name('service.update');
+    Route::delete('service/{service}', 'ServiceController@destroy')->name('service.destroy');
 
     /**
      * Purchases Routes
