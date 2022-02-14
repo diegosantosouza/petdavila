@@ -78,6 +78,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('finance', 'FinanceController');
 
     Route::resource('service', 'ServiceController');
+    Route::post('service', 'ServiceController@search')->name('service.search');
+
 
     /**
      * Purchases Routes

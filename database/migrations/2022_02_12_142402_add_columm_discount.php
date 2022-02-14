@@ -15,7 +15,7 @@ class AddColummDiscount extends Migration
     {
         Schema::table('purchase', function (Blueprint $table) {
             $table->decimal('discount',10, 2)->nullable();
-            $table->string('notes',)->nullable();
+            $table->string('notes')->nullable();
         });
     }
 
