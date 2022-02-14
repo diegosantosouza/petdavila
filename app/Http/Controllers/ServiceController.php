@@ -95,4 +95,14 @@ class ServiceController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $services = Services::orderby('name', 'asc')->select(['id', 'name'])->where('name', 'like', $request->servicesSearch . '%')->latest();
+        $response = array();
+        foreach ($services as $service) {
+            $response[] = array("value" => $service->id, "label" => $service->name);
+        }
+        echo json_encode($response);
+    }
 }

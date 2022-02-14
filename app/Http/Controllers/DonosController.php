@@ -108,7 +108,7 @@ class DonosController extends Controller
 
     public function search(Request $request)
     {
-        $tutores = Donos::orderby('nome', 'asc')->select(['id', 'nome'])->where('nome', 'like', $request->tutor_id . '%')->limit(5)->get();
+        $tutores = Donos::orderby('nome', 'asc')->select(['id', 'nome'])->where('nome', 'like', $request->tutorSearch . '%')->limit(5)->get();
         $response = array();
         foreach ($tutores as $dono) {
             $response[] = array("value" => $dono->id, "label" => $dono->nome);

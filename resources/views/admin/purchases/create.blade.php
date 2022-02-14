@@ -41,7 +41,6 @@
                 <form class="app_form" action="{{ route('purchases.store') }}" method="post"
                       enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="tutor_id" id="tutor_id" value="{{ old('tutor_id') }}">
                     <div class="nav_tabs_content">
                         <div id="tutor">
 
@@ -50,6 +49,7 @@
                                     <span class="legend">*Tutor:</span>
                                     <input type="text" class="label" name="tutorSearch" id="tutorSearch" placeholder="Nome do Tutor"/>
                                 </label>
+                                <input type="hidden" name="tutor_id" id="tutor_id" value="{{ old('tutor_id') }}">
 
                                 <label class="label">
                                     <span class="legend">Pagamento:</span>
@@ -60,29 +60,33 @@
                                 </label>
                             </div>
 
-                            <div class="label_g2">
+                            <div class="label_g4">
                                 <label class="label">
                                     <span class="legend">Serviço:</span>
-                                    <select name="description" class="select2">
-                                        @foreach($services as $service)
-                                            <option value="{{$service->id}}" {{ (old('description') == $service->id ? 'selected' : '') }}>
-                                                {{$service->name}}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" class="label" name="servicesSearch" id="servicesSearch" placeholder="Nome do Serviço"/>
                                 </label>
+                                <label class="label">
+                                    <span class="legend">Preço:</span>
+                                    <input type="text"  class="mask-money" name="price" id="price" disabled/>
+                                </label>
+                                <input type="hidden" name="service_id" id="service_id" value="{{ old('service_id') }}">
 
                                 <label class="label">
                                     <span class="legend">Desconto:</span>
                                     <input type="text" name="discount" class="mask-money" placeholder="Desconto do serviço"
                                            value="{{ old('discount') }}"/>
                                 </label>
+                                <label class="label">
+                                    <span class="legend">Total:</span>
+                                    <input type="text" name="discount" class="mask-money" placeholder="Preço final"
+                                           value="{{ old('discount') }}" disabled/>
+                                </label>
                             </div>
 
-                            <div class="label_g2">
+                            <div class="row mx-1">
                                 <label class="label">
                                     <span class="legend">Anotaçoes:</span>
-                                    <textarea class="label" rows="4" name="notes" >{{ old('notes')}}</textarea>
+                                    <textarea class="label" rows="2" name="notes" >{{ old('notes')}}</textarea>
                                 </label>
                             </div>
 
@@ -109,14 +113,13 @@
                 minLength: 3,
                 delay: 500,
                 source: function (request, response) {
-                    // Fetch data
                     $.ajax({
                         url: "{{route('tutores.search')}}",
                         type: 'post',
                         dataType: "json",
                         data: {
                             _token: _token,
-                            tutor_id: request.term
+                            tutorSearch: request.term
                         },
                         success: function (data) {
                             response(data);
@@ -125,6 +128,29 @@
                 },
                 select: function (event, ui) {
                     $('#tutor_id').val(ui.item.value);
+                    $(this).val(ui.item.label);
+                    return false;
+                }
+            });
+            $('#servicesSearch').autocomplete({
+                minLength: 3,
+                delay: 500,
+                source: function (request, response) {
+                    $.ajax({
+                        url: "{{route('service.search')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                            _token: _token,
+                            servicesSearch: request.term
+                        },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    $('#service_id').val(ui.item.value);
                     $(this).val(ui.item.label);
                     return false;
                 }
