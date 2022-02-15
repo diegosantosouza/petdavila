@@ -47,7 +47,8 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Tutor:</span>
-                                    <input type="text" class="label" name="tutorSearch" id="tutorSearch" placeholder="Nome do Tutor"/>
+                                    <input type="text" class="label" name="tutorSearch" id="tutorSearch"
+                                           placeholder="Nome do Tutor"/>
                                 </label>
                                 <input type="hidden" name="tutor_id" id="tutor_id" value="{{ old('tutor_id') }}">
 
@@ -63,17 +64,19 @@
                             <div class="label_g4">
                                 <label class="label">
                                     <span class="legend">Serviço:</span>
-                                    <input type="text" class="label" name="servicesSearch" id="servicesSearch" placeholder="Nome do Serviço"/>
+                                    <input type="text" class="label" name="servicesSearch" id="servicesSearch"
+                                           placeholder="Nome do Serviço"/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">Preço:</span>
-                                    <input type="text"  class="mask-money" name="price" id="price" disabled/>
+                                    <input type="text" class="mask-money" name="price" id="price" disabled/>
                                 </label>
                                 <input type="hidden" name="service_id" id="service_id" value="{{ old('service_id') }}">
 
                                 <label class="label">
                                     <span class="legend">Desconto:</span>
-                                    <input type="text" name="discount" class="mask-money" placeholder="Desconto do serviço"
+                                    <input type="text" name="discount" class="mask-money"
+                                           placeholder="Desconto do serviço"
                                            value="{{ old('discount') }}"/>
                                 </label>
                                 <label class="label">
@@ -86,7 +89,7 @@
                             <div class="row mx-1">
                                 <label class="label">
                                     <span class="legend">Anotaçoes:</span>
-                                    <textarea class="label" rows="2" name="notes" >{{ old('notes')}}</textarea>
+                                    <textarea class="label" rows="2" name="notes">{{ old('notes')}}</textarea>
                                 </label>
                             </div>
 

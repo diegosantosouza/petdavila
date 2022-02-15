@@ -26,7 +26,8 @@ class ServicesRequest extends FormRequest
     {
         return [
             'name'=> 'required|min:3|max:191',
-            'status'=> 'required'
+            'status'=> 'required',
+            'renew'=> 'required',
         ];
     }
 }

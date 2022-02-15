@@ -55,7 +55,7 @@
                                 <label class="label">
                                     <span class="legend">Status:</span>
                                     <select id="status" name="status">
-                                        <option value="active" selected >Ativo</option>
+                                        <option value="active" selected>Ativo</option>
                                         <option value="inactive">Inativo</option>
                                         <option value="expired">Expirado</option>
                                     </select>
@@ -71,25 +71,27 @@
 
                                 <label class="label">
                                     <span class="legend">*Preço:</span>
-                                    <input type="number" min="0.00" max="10000.00" step="0.01" name="price" placeholder="Preço do serviço"
-                                           value="{{ old('price')  }}"/>
+                                    <input type="text" class="mask-money" name="price" placeholder="Preço do serviço"
+                                           value="{{ old('price') }}"/>
                                 </label>
                             </div>
-                        
+
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">Recorrência:</span>
-                                    <input type="number" placeholder=0 class="mask-doc" name="renew" placeholder="Repete em quantos dias"
-                                           value="{{ old('renew') }}"/>
+                                    <input type="number" placeholder=0 class="mask-doc" name="renew"
+                                           placeholder="Repete em quantos dias"
+                                           value="{{ old('renew') ?? 0 }}"/>
                                 </label>
 
                                 <label class="label">
                                     <span class="legend">Crédito em diárias:</span>
-                                    <input type="number" class="mask-doc" name="credit_days" placeholder="Número de diárias"
+                                    <input type="number" class="mask-doc" name="credit_days"
+                                           placeholder="Número de diárias"
                                            value="{{ old('credit_days') }}"/>
                                 </label>
                             </div>
-                            
+
                         </div>
                     </div>
 

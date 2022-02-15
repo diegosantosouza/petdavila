@@ -4,7 +4,7 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-user-plus">Novo Serviço</h2>
+            <h2 class="icon-user-plus">Visualizar Serviço</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -15,7 +15,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('service.index') }}">Serviços</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('service.create') }}">Novo Serviço</a></li>
+                        <li><a href="{{ route('service.create') }}">Visualizar Serviço</a></li>
                     </ul>
                 </nav>
             </div>
@@ -75,7 +75,7 @@
                                            value="{{ old('price')  }}"/>
                                 </label>
                             </div>
-                        
+
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">Recorrência:</span>
@@ -89,7 +89,7 @@
                                            value="{{ old('days') }}"/>
                                 </label>
                             </div>
-                            
+
                         </div>
                     </div>
 
