@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Helpers\Convert;
 use Illuminate\Database\Eloquent\Model;
 
 class Purchases extends Model
@@ -27,5 +28,14 @@ class Purchases extends Model
     public function pricePurchase()
     {
         return $this->hasManyThrough(Prices::class, Services::class);
+    }
+
+    public function setValueAttribute($value)
+    {
+        if (empty($value)) {
+            $this->attributes['value'] = null;
+        } else {
+            $this->attributes['value'] = floatval(Convert::convertStringToDouble($value));
+        }
     }
 }

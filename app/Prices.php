@@ -24,6 +24,5 @@ class Prices extends Model
         } else {
             $this->attributes['value'] = floatval(Convert::convertStringToDouble($value));
         }
-
     }
 }

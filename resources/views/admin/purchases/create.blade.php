@@ -4,7 +4,7 @@
     <section class="dash_content_app">
 
         <header class="dash_content_app_header">
-            <h2 class="icon-user-plus">Novo Serviço</h2>
+            <h2 class="icon-user-plus">Venda</h2>
 
             <div class="dash_content_app_header_actions">
                 <nav class="dash_content_app_breadcrumb">
@@ -15,7 +15,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('finance.purchase') }}">Vendas</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('purchases.create') }}">Novo Serviço</a></li>
+                        <li><a href="{{ route('purchases.create') }}">Nova Venda</a></li>
                     </ul>
                 </nav>
             </div>
@@ -67,22 +67,23 @@
                                     <input type="text" class="label" name="servicesSearch" id="servicesSearch"
                                            placeholder="Nome do Serviço"/>
                                 </label>
+                                <input type="hidden" name="service_id" id="service_id" value="{{ old('service_id') }}">
+
                                 <label class="label">
                                     <span class="legend">Preço:</span>
                                     <input type="text" class="mask-money" name="price" id="price" disabled/>
                                 </label>
-                                <input type="hidden" name="service_id" id="service_id" value="{{ old('service_id') }}">
 
                                 <label class="label">
                                     <span class="legend">Desconto:</span>
-                                    <input type="text" name="discount" class="mask-money"
+                                    <input type="text" name="discount" id="discount" class="mask-money"
                                            placeholder="Desconto do serviço"
                                            value="{{ old('discount') }}"/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">Total:</span>
-                                    <input type="text" name="discount" class="mask-money" placeholder="Preço final"
-                                           value="{{ old('discount') }}" disabled/>
+                                    <input type="text" name="total" id="total" class="mask-money" placeholder="Preço final"
+                                           value="{{ old('total') }}" disabled/>
                                 </label>
                             </div>
 
@@ -111,10 +112,9 @@
     <script>
         $(document).ready(function () {
             var _token = $('input[name="_token"]').val();
-
             $('#tutorSearch').autocomplete({
                 minLength: 3,
-                delay: 500,
+                delay: 150,
                 source: function (request, response) {
                     $.ajax({
                         url: "{{route('tutores.search')}}",
@@ -137,7 +137,7 @@
             });
             $('#servicesSearch').autocomplete({
                 minLength: 3,
-                delay: 500,
+                delay: 150,
                 source: function (request, response) {
                     $.ajax({
                         url: "{{route('service.search')}}",
@@ -155,9 +155,20 @@
                 select: function (event, ui) {
                     $('#service_id').val(ui.item.value);
                     $(this).val(ui.item.label);
+                    $('#price').val(ui.item.price.value);
+                    $('#total').val(ui.item.price.value);
                     return false;
                 }
             });
+            function calculatePrice(){
+                let price = $('#price').val();
+                let discount = $('#discount').val().replace(',', '.');
+                if (discount.length>2){
+                    return $('#total').val(price - discount);
+                }
+            }
+            $('#discount').keyup(calculatePrice);
+
         });
     </script>
 @endsection

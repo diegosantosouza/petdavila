@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Purchases;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,8 @@ class FinanceController extends Controller
 
     public function purchase()
     {
+        $purchases = Purchases::with(['servicePurchase', 'pricePurchase'])->get();
+//        dd($purchases);
         return view('admin.finance.purchase');
     }
 

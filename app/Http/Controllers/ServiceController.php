@@ -113,10 +113,14 @@ class ServiceController extends Controller
 
     public function search(Request $request)
     {
-        $service = Services::orderby('name', 'asc')->where([
+        $services = Services::orderby('name', 'asc')->where([
             ['name', 'like', $request->servicesSearch . '%'],
             ['status', 'active'],
-        ])->with('priceService')->latest()->first();
-        echo json_encode($service);
+        ])->with('priceService')->limit(5)->get();
+        $response = array();
+        foreach ($services as $service) {
+            $response[] = array("value" => $service->id, "label" => $service->name, "service" => $service, "price" => $service->priceService()->latest('created_at')->first());
+        }
+        echo json_encode($response);
     }
 }

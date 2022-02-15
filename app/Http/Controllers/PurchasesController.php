@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Purchases;
 use App\Services;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,11 @@ class PurchasesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $purchase = new Purchases();
+        $purchase->fill($request->all());
+        $purchase->date = new \DateTime();
+        $purchase->save();
+        return redirect()->route('finance.purchase')->with(['color' => 'green', 'message' => 'Cadastrado com sucesso!']);
     }
 
     /**
