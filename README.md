@@ -19,7 +19,7 @@ nginx:
 
 ```
 ### configuração do entrypoint do app
-./docker-compose/app/entrypoint.sh 
+./docker-compose/app/wait-for-it.sh 
 
 ### configuração do entrypoint para o db criar as tabelas
 ./docker-compose/mysql/init_db.sql 
@@ -62,10 +62,10 @@ Quando a compilação terminar, execute o ambiente em modo de segundo plano com:
 docker-compose up -d
 ```
 
-Agora, vá até seu navegador e acesse o nome de domínio ou endereço IP do seu servidor na porta 8000:
-```
-http://server_domain_or_IP:8000
-```
+Agora, vá até seu navegador e acesse o nome de domínio ou endereço IP do seu servidor na porta 8080:
+
+http://server_domain_or_IP:8080
+
 Você pode usar o comando logs para verificar os registros gerados por seus serviços:
 ```
 docker-compose logs nginx
