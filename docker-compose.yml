@@ -8,7 +8,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: petdavila
-    command: sh -c "./wait-for-it.sh db:3306 && \
+    command: sh -c "/wait-for-it.sh db:3306 && \
       composer install && \
       cp .env.example .env && \
       php artisan key:generate && \
