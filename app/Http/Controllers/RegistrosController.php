@@ -195,22 +195,19 @@ class RegistrosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
         if (Auth::user()->admin == 1) {
             $registro = Registros::where('id', $id)->first();
             $registro->fill($request->all());
-            $registro->entrada = str_replace('T', ' ', $request->entrada);
-//            $registro->entrada = \DateTime::createFromFormat('d/m/Y H:i', $request->entrada);
+            if (!empty($request->entrada)) {
+                $registro->entrada = str_replace('T', ' ', $request->entrada);
+            }
             if (!empty($registro->saida)) {
                 $registro->saida = str_replace('T', ' ', $request->saida);
-//                $registro->saida = \DateTime::createFromFormat('d/m/Y H:i', $request->saida);
+                $cont = $registro->diaria($registro->entrada, $registro->saida);
+                $registro->daycare = $cont->daycare;
+                $registro->nightcare = $cont->nightcare;
+                $registro->fds = $cont->fds;
             }
-
-            $cont = $registro->diaria($registro->entrada, $registro->saida);
-            $registro->daycare = $cont->daycare;
-            $registro->nightcare = $cont->nightcare;
-            $registro->fds = $cont->fds;
-
             $registro->save();
             return redirect()->back()->with(['color' => 'green', 'message' => 'Editado com sucesso.']);
         }
