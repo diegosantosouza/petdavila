@@ -117,7 +117,7 @@ class Random
         // environmental variables, including the previous session data and the current session
         // data.
         //
-        // mt_rand seeds itself by looking at the PID and the time, both of which are (relatively)
+        // mt_rand seeders itself by looking at the PID and the time, both of which are (relatively)
         // easy to guess at. linux uses mouse clicks, keyboard timings, etc, as entropy sources, but
         // PHP isn't low level to be able to use those as sources and on a web server there's not likely
         // going to be a ton of keyboard or mouse action. web servers do have one thing that we can use
