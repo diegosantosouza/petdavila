@@ -77,18 +77,21 @@ Route::group(['middleware' => ['auth']], function () {
     // Route::get('finance/service', 'ServiceController@index')->name('service.index');
     Route::resource('finance', 'FinanceController');
 
-    Route::post('service', 'ServiceController@search')->name('service.search');
     Route::post('service', 'ServiceController@store')->name('service.store');
     Route::get('service', 'ServiceController@index')->name('service.index');
-    Route::get('service/{service}', 'ServiceController@show')->name('service.show');
     Route::get('service/create', 'ServiceController@create')->name('service.create');
-    Route::get('service/{service}/edit', 'ServiceController@edit')->name('service.edit');
+    Route::post('service/search', 'ServiceController@search')->name('service.search');
+    Route::get('service/{service}', 'ServiceController@show')->name('service.show');
     Route::put('service/{service}', 'ServiceController@update')->name('service.update');
     Route::delete('service/{service}', 'ServiceController@destroy')->name('service.destroy');
+    Route::get('service/{service}/edit', 'ServiceController@edit')->name('service.edit');
 
     /**
      * Purchases Routes
      */
     Route::post('purchases', 'PurchasesController@store')->name('purchases.store');
     Route::get('purchases', 'PurchasesController@create')->name('purchases.create');
+    Route::put('purchases/{purchase}', 'PurchasesController@update')->name('purchases.update');
+    Route::delete('purchases/{purchase}', 'PurchasesController@destroy')->name('purchases.destroy');
+    Route::get('purchases/{purchase}/edit', 'PurchasesController@edit')->name('purchases.edit');
 });

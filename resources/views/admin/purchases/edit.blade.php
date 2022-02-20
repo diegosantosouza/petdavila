@@ -15,7 +15,7 @@
                         <li class="separator icon-angle-right icon-notext"></li>
                         <li><a href="{{ route('finance.purchase') }}">Vendas</a></li>
                         <li class="separator icon-angle-right icon-notext"></li>
-                        <li><a href="{{ route('purchases.create') }}">Nova Venda</a></li>
+                        <li><a href="#">Editar Venda</a></li>
                     </ul>
                 </nav>
             </div>
@@ -38,9 +38,11 @@
                     </li>
                 </ul>
 
-                <form class="app_form" action="{{ route('purchases.store') }}" method="post"
+                <form class="app_form" action="{{ route('purchases.update', ['purchase'=>$purchase->id]) }}"
+                      method="post"
                       enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="nav_tabs_content">
                         <div id="tutor">
 
@@ -48,15 +50,16 @@
                                 <label class="label">
                                     <span class="legend">*Tutor:</span>
                                     <input type="text" class="label" name="tutorSearch" id="tutorSearch"
-                                           placeholder="Nome do Tutor"/>
+                                           placeholder="Nome do Tutor" value="{{ old('tutorSearch') ?? $purchase->tutor->nome }}"/>
                                 </label>
-                                <input type="hidden" name="tutor_id" id="tutor_id" value="{{ old('tutor_id') }}">
+                                <input type="hidden" name="tutor_id" id="tutor_id"
+                                       value="{{ old('tutor_id') ?? $purchase->tutor_id}}">
 
                                 <label class="label">
                                     <span class="legend">Pagamento:</span>
-                                    <select id="status" name="status" class="select2">
-                                        <option value="notPaid">Pendente</option>
-                                        <option value="paid">Pago</option>
+                                    <select id="status" name="status">
+                                        <option value="pending" {{ (old('status') === 'pending' ? 'selected' : ($purchase->status === 'pending' ? 'selected' : '')) }}>Pendente</option>
+                                        <option value="paid" {{ (old('status') === 'paid' ? 'selected' : ($purchase->status === 'paid' ? 'selected' : '')) }}>Pago</option>
                                     </select>
                                 </label>
                             </div>
@@ -65,32 +68,32 @@
                                 <label class="label">
                                     <span class="legend">Serviço:</span>
                                     <input type="text" class="label" name="servicesSearch" id="servicesSearch"
-                                           placeholder="Nome do Serviço"/>
+                                           placeholder="Nome do Serviço" value="{{ old('servicesSearch') ?? $purchase->servicePurchase->name }}"/>
                                 </label>
-                                <input type="hidden" name="service_id" id="service_id" value="{{ old('service_id') }}">
+                                <input type="hidden" name="service_id" id="service_id" value="{{ old('service_id') ?? $purchase->service_id}}">
 
                                 <label class="label">
                                     <span class="legend">Preço:</span>
-                                    <input type="text" class="mask-money" name="price" id="price" disabled/>
+                                    <input type="text" class="mask-money" name="price" id="price" value="{{ old('price') ?? $purchase->pricePurchase->last()->value}}" disabled/>
                                 </label>
 
                                 <label class="label">
                                     <span class="legend">Desconto:</span>
                                     <input type="text" name="discount" id="discount" class="mask-money"
                                            placeholder="Desconto do serviço"
-                                           value="{{ old('discount') }}"/>
+                                           value="{{ old('discount') ?? $purchase->discount }}"/>
                                 </label>
                                 <label class="label">
                                     <span class="legend">Total:</span>
                                     <input type="text" name="value" id="value" class="" placeholder="Preço final"
-                                           value="{{ old('value') }}"/>
+                                           value="{{ old('value') ?? $purchase->pricePurchase->last()->value - $purchase->discount}}"/>
                                 </label>
                             </div>
 
                             <div class="row mx-1">
                                 <label class="label">
                                     <span class="legend">Anotaçoes:</span>
-                                    <textarea class="label" rows="2" name="notes">{{ old('notes')}}</textarea>
+                                    <textarea class="label" rows="2" name="notes">{{ old('notes') ?? $purchase->notes }}</textarea>
                                 </label>
                             </div>
 
@@ -114,7 +117,7 @@
             var _token = $('input[name="_token"]').val();
             $('#tutorSearch').autocomplete({
                 minLength: 3,
-                delay: 100,
+                delay: 150,
                 source: function (request, response) {
                     $.ajax({
                         url: "{{route('tutores.search')}}",
@@ -137,7 +140,7 @@
             });
             $('#servicesSearch').autocomplete({
                 minLength: 3,
-                delay: 150,
+                delay: 100,
                 source: function (request, response) {
                     $.ajax({
                         url: "{{route('service.search')}}",
@@ -161,13 +164,7 @@
                     return false;
                 }
             });
-            function calculatePrice(){
-                let price = $('#price').val();
-                let discount = $('#discount').val().replace(',', '.');
-                if (discount){
-                    return $('#value').val(price - discount).replace('.', ',').addClass('mask-money');
-                }
-            }
+
             $('#discount').keyup(function (){
                 let price = $('#price').val().replace(',', '.');
                 let discount = $('#discount').val().replace(',', '.');

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Helpers\Transform;
 use Illuminate\Database\Eloquent\Model;
 
 class Prices extends Model
@@ -15,4 +16,13 @@ class Prices extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function setValueAttribute($value)
+    {
+        if (empty($value)) {
+            $this->attributes['value'] = null;
+        } else {
+            $this->attributes['value'] = floatval(Transform::convertStringToDouble($value));
+        }
+    }
 }

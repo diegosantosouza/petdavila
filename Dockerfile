@@ -32,12 +32,9 @@ RUN mkdir -p /home/$user/.composer && \
 WORKDIR /var/www
 
 # Copy script file for artisan commands
-COPY ./docker-compose/app/entrypoint.sh /entrypoint.sh
+COPY ./docker-compose/app/wait-for-it.sh /wait-for-it.sh
 
 # Set permission
-RUN chmod +x /entrypoint.sh
-
-# Run script file
-ENTRYPOINT ["/entrypoint.sh"]
+RUN chmod +x /wait-for-it.sh
 
 USER $user

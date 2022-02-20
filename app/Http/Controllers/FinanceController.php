@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Purchases;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +42,9 @@ class FinanceController extends Controller
 
     public function purchase()
     {
-        return view('admin.finance.purchase');
+        $purchases = Purchases::with(['servicePurchase', 'pricePurchase', 'tutor'])->get();
+//        dd($purchases);
+        return view('admin.finance.purchase', ['purchases' => $purchases]);
     }
 
     public function recurrence()

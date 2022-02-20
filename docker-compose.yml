@@ -8,6 +8,12 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: petdavila
+    command: sh -c "/wait-for-it.sh db:3306 && \
+      composer install && \
+      cp .env.example .env && \
+      php artisan key:generate && \
+      php artisan migrate:fresh --seed && \
+      php-fpm"
     container_name: petdavila-app
     restart: always
     working_dir: /var/www/
@@ -41,7 +47,7 @@ services:
     container_name: petdavila-nginx
     restart: always
     ports:
-      - 8000:80
+      - 8080:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d

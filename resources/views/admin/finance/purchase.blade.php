@@ -44,6 +44,8 @@
                         <th>Serviço</th>
                         <th>Tutor</th>
                         <th>Valor</th>
+                        <th>desconto</th>
+                        <th>total</th>
                         <th>Status</th>
                         @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
                             <th></th>
@@ -51,26 +53,56 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                    @foreach($purchases as $purchase)
                         <tr>
-                            <td>ID</td>
-                            <td>Data</td>
-                            <td>Serviço</td>
-                            <td>Tutor</td>
-                            <td>Valor</td>
-                            <td>Status</td>
+                            <td>{{$purchase->id}}</td>
+                            <td>{{$purchase->created_at}}</td>
+                            <td>{{$purchase->servicePurchase->name}}</td>
+                            <td>{{$purchase->tutor->nome}}</td>
+                            <td class="mask-money">{{$purchase->pricePurchase->last()->value}}</td>
+                            <td class="mask-money">{{$purchase->discount}}</td>
+                            <td>{{$purchase->pricePurchase->last()->value - $purchase->discount}}</td>
+                            <td>{{$purchase->status == 'paid' ? 'Pago' : 'Pendente'}}</td>
                             @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                                <td class="text-right">
-                                    <a class="btn btn-red icon-trash"></a>
-                                    <a class="btn btn-green icon-pencil"></a>
+                                <td class="d-flex">
+                                    <form action="{{ route('purchases.destroy', ['purchase'=>$purchase->id]) }}"
+                                          method="post" class="confirm">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-red icon-trash"></button>
+                                    </form>
+                                    <a class="btn btn-green icon-pencil"
+                                       href="{{ route('purchases.edit', ['purchase'=>$purchase->id]) }}"></a>
                                 </td>
                             @endif
                         </tr>
-
+                    @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
 
+@endsection
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $('.confirm').on('submit', function () {
+                var $this = $(this);
+                swal({
+                    title: "Tem certeza?",
+                    text: "Uma vez excluído, você não poderá recuperar este registro!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $this.off('submit').submit();
+                        }
+                    });
+                return false;
+            });
+        });
+    </script>
 @endsection

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class ServicesRequest extends FormRequest
+class PurchaseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,11 @@ class ServicesRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> 'required|min:3|max:191',
-            'description'=> 'max:500',
+            'tutor_id'=> 'required',
+            'service_id'=> 'required',
+            'value'=> 'required',
             'status'=> 'required',
-            'renew'=> 'required',
+            'notes'=> 'max:191',
         ];
     }
 }

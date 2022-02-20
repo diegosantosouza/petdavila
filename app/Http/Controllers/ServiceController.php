@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Services;
-use App\Prices;
+use App\Helpers\Transform;
 use App\Http\Requests\Admin\ServicesRequest as ServicesRequest;
-use App\Http\Requests\Admin\PricesRequest as PricesRequest;
-
+use App\Prices;
+use App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ServiceController extends Controller
@@ -44,7 +42,7 @@ class ServiceController extends Controller
         LEFT JOIN price b ON a.id = b.service_id
         AND b.start = (SELECT MAX(c.start) FROM price c WHERE a.id = c.service_id)";
 
-       $service_with_price = DB::select(DB::raw($query));
+        $service_with_price = DB::select(DB::raw($query));
 
         return view('admin.service.index', ['services' => $service_with_price]);
     }
@@ -68,8 +66,8 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Services::where('id', $id)->first();
-        $prices = Prices::where('service_id',$id)->get();
-        return view('admin.service.edit', ['service'=>$service, 'prices'=>$prices]);
+        $prices = Prices::where('service_id', $id)->get();
+        return view('admin.service.edit', ['service' => $service, 'prices' => $prices]);
     }
 
     /**
@@ -87,7 +85,8 @@ class ServiceController extends Controller
         $service->fill($request->all());
         $service->save();
 
-        if($request->old_price != $request->get("price")) {
+        $newPrice = Transform::convertStringToDouble($request->get("price"));
+        if ($request->old_price != $newPrice) {
             $price = new Prices();
             $price->fill(["service_id" => $service->id, "value" => intval($request->get("price")), "start" => $today]);
             $price->save();
@@ -114,10 +113,13 @@ class ServiceController extends Controller
 
     public function search(Request $request)
     {
-        $services = Services::orderby('name', 'asc')->select(['id', 'name'])->where('name', 'like', $request->servicesSearch . '%')->latest();
+        $services = Services::orderby('name', 'asc')->where([
+            ['name', 'like', $request->servicesSearch . '%'],
+            ['status', 'active'],
+        ])->with('priceService')->limit(5)->get();
         $response = array();
         foreach ($services as $service) {
-            $response[] = array("value" => $service->id, "label" => $service->name);
+            $response[] = array("value" => $service->id, "label" => $service->name, "service" => $service, "price" => $service->priceService()->latest('created_at')->first());
         }
         echo json_encode($response);
     }
