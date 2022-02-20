@@ -92,7 +92,6 @@ class PurchasesController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
         Purchases::destroy($id);
         return redirect()->route('finance.purchase')->with(['color' => 'green', 'message' => 'Deletado com sucesso!']);
     }

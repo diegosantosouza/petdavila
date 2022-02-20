@@ -100,10 +100,8 @@ class DonosController extends Controller
      */
     public function destroy($id)
     {
-        return redirect()->back()->with(['color' => 'orange', 'message' => 'Função desabilitada.']);
-//
-//        Donos::find($id)->delete();
-//        return redirect()->route('tutores.index')->with(['color' => 'green', 'message' => 'Tutor deletado.']);
+        Donos::destroy($id);
+        return redirect()->route('tutores.index')->with(['color' => 'green', 'message' => 'Tutor deletado.']);
     }
 
     public function search(Request $request)
