@@ -136,7 +136,7 @@
 <script src="{{ url('backend/assets/bootstrap/js/bootstrap.bundle.js')}}"></script>
 <script src="{{ url('backend/assets/bootstrap/js/bootstrap.js')}}"></script>
 <script src="{{ url('backend/assets/js/pace.min.js')}}"></script>
-
+<script src="{{ url('backend/assets/js/sweetalert.min.js')}}"></script>
 
 @hasSection('js')
     @yield('js')

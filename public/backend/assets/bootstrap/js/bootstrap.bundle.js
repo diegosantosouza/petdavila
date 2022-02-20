@@ -3285,7 +3285,7 @@
     var splitRegex = /\s*,\s*|\s+/;
     var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
 
-    // Convert the values with units to absolute pixels to allow our computations
+    // Transform the values with units to absolute pixels to allow our computations
     ops = ops.map(function (op, index) {
       // Most of the units rely on the orientation of the popper
       var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';

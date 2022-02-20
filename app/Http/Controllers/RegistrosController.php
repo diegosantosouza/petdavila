@@ -195,6 +195,7 @@ class RegistrosController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request->all());
         if (Auth::user()->admin == 1) {
             $registro = Registros::where('id', $id)->first();
             $registro->fill($request->all());

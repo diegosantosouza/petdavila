@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\PurchaseRequest;
 use App\Purchases;
 use App\Services;
 use Illuminate\Http\Request;
@@ -26,16 +27,16 @@ class PurchasesController extends Controller
     public function create()
     {
         $services = Services::select('id', 'name')->get();
-        return view('admin.purchases.create', ['services'=>$services]);
+        return view('admin.purchases.create', ['services' => $services]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PurchaseRequest $request)
     {
         $purchase = new Purchases();
         $purchase->fill($request->all());
@@ -47,7 +48,7 @@ class PurchasesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -58,34 +59,41 @@ class PurchasesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $purchase = Purchases::where('id', $id)->with(['servicePurchase', 'pricePurchase', 'tutor'])->first();
+//        dd($purchase);
+        return view('admin.purchases.edit', ['purchase' => $purchase]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PurchaseRequest $request, $id)
     {
-        //
+        $purchase = Purchases::where('id', $id)->first();
+        $purchase->fill($request->all());
+        $purchase->save();
+        return redirect()->route('finance.purchase')->with(['color' => 'green', 'message' => 'Atualizado com sucesso!']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        dd($id);
+        Purchases::destroy($id);
+        return redirect()->route('finance.purchase')->with(['color' => 'green', 'message' => 'Deletado com sucesso!']);
     }
 }

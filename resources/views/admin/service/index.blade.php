@@ -54,31 +54,30 @@
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach($services as $service)
-                                <tr>
-                                    <td>{{$service->id}}</td>
-                                    <td>{{$service->name}}</td>
-                                    <td>{{$service->description}}</td>
-                                    <td>{{$service->renew}}</td>
-                                    <td>{{$service->credit_days}}</td>
-                                    <td>{{$service->value}}</td>
-                                    <td>{{$service->status}}</td>
-                                        @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                                            <td class="text-right">
-                                                <div class="d-flex">
-                                                    <form action="{{ route('service.destroy', ['service'=>$service->id]) }}" method="post" class="">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-red icon-trash"></button>
-                                                    </form>
-                                                    <a class="btn btn-green icon-pencil"
-                                                       href="{{ route('service.edit', ['service'=>$service->id]) }}"></a>
-                                                    <a class="btn btn-blue icon-search"></a>
-                                                </div>
-                                            </td>
-                                        @endif
-                                </tr>
-                            @endforeach
+                        @foreach($services as $service)
+                            <tr>
+                                <td>{{$service->id}}</td>
+                                <td>{{$service->name}}</td>
+                                <td>{{$service->description}}</td>
+                                <td>{{$service->renew}}</td>
+                                <td>{{$service->credit_days}}</td>
+                                <td>{{$service->value}}</td>
+                                <td>{{$service->status}}</td>
+                                @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
+                                    <td class="d-flex">
+                                        <form action="{{ route('service.destroy', ['service'=>$service->id]) }}"
+                                              method="post" class="">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-red icon-trash"></button>
+                                        </form>
+                                        <a class="btn btn-green icon-pencil"
+                                           href="{{ route('service.edit', ['service'=>$service->id]) }}"></a>
+                                        <a class="btn btn-blue icon-search"></a>
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

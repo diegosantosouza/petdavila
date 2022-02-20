@@ -42,9 +42,9 @@ class FinanceController extends Controller
 
     public function purchase()
     {
-        $purchases = Purchases::with(['servicePurchase', 'pricePurchase'])->get();
+        $purchases = Purchases::with(['servicePurchase', 'pricePurchase', 'tutor'])->get();
 //        dd($purchases);
-        return view('admin.finance.purchase');
+        return view('admin.finance.purchase', ['purchases' => $purchases]);
     }
 
     public function recurrence()

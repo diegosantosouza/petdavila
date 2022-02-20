@@ -91,4 +91,7 @@ Route::group(['middleware' => ['auth']], function () {
      */
     Route::post('purchases', 'PurchasesController@store')->name('purchases.store');
     Route::get('purchases', 'PurchasesController@create')->name('purchases.create');
+    Route::put('purchases/{purchase}', 'PurchasesController@update')->name('purchases.update');
+    Route::delete('purchases/{purchase}', 'PurchasesController@destroy')->name('purchases.destroy');
+    Route::get('purchases/{purchase}/edit', 'PurchasesController@edit')->name('purchases.edit');
 });

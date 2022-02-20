@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Convert;
+use App\Helpers\Transform;
 use App\Http\Requests\Admin\ServicesRequest as ServicesRequest;
 use App\Prices;
 use App\Services;
@@ -85,7 +85,7 @@ class ServiceController extends Controller
         $service->fill($request->all());
         $service->save();
 
-        $newPrice = Convert::convertStringToDouble($request->get("price"));
+        $newPrice = Transform::convertStringToDouble($request->get("price"));
         if ($request->old_price != $newPrice) {
             $price = new Prices();
             $price->fill(["service_id" => $service->id, "value" => intval($request->get("price")), "start" => $today]);

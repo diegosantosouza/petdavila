@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helpers\Convert;
+use App\Helpers\Transform;
 use Illuminate\Database\Eloquent\Model;
 
 class Purchases extends Model
@@ -25,17 +25,32 @@ class Purchases extends Model
         return $this->hasOne(Services::class, 'id', 'service_id');
     }
 
-    public function pricePurchase()
+    public function tutor()
     {
-        return $this->hasManyThrough(Prices::class, Services::class);
+        return $this->belongsTo(Donos::class, 'tutor_id');
     }
 
-    public function setValueAttribute($value)
+    public function pricePurchase()
+    {
+        return $this->hasManyThrough(Prices::class, Services::class, 'id', 'service_id', 'service_id', 'id');
+    }
+
+    public function getValueAttribute($value)
     {
         if (empty($value)) {
-            $this->attributes['value'] = null;
-        } else {
-            $this->attributes['value'] = floatval(Convert::convertStringToDouble($value));
+            return null;
         }
+
+        return number_format($value, 2, ',', '.');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Transform::convertToDate($value);
+    }
+
+    public function setDiscountAttribute($value)
+    {
+        $this->attributes['discount'] = (!empty($value) ? floatval(Transform::convertStringToDouble($value)) : null);
     }
 }

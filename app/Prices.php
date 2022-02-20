@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Helpers\Convert;
+use App\Helpers\Transform;
 use Illuminate\Database\Eloquent\Model;
 
 class Prices extends Model
@@ -22,7 +22,7 @@ class Prices extends Model
         if (empty($value)) {
             $this->attributes['value'] = null;
         } else {
-            $this->attributes['value'] = floatval(Convert::convertStringToDouble($value));
+            $this->attributes['value'] = floatval(Transform::convertStringToDouble($value));
         }
     }
 }
