@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\Donos;
 use Illuminate\Database\Seeder;
 
-class AnimalTableSeeder extends Seeder
+class DonosTableSeeder extends Seeder
 {
     /**
      * Run the database seeders.
@@ -11,8 +14,6 @@ class AnimalTableSeeder extends Seeder
      */
     public function run()
     {
-
-        factory(\App\Animal::class, 50)->create();
-
+        Donos::factory(100)->create();
     }
 }

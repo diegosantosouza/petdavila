@@ -98,10 +98,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('registros', [RegistrosController::class, 'store'])->name('registros.store');
     Route::get('registros', [RegistrosController::class, 'index'])->name('registros.index');
     Route::get('registros/create', [RegistrosController::class, 'create'])->name('registros.create');
-    Route::get('registros/{registro}', [RegistrosController::class, 'show'])->name('registros.show');
-    Route::put('registros/{registro}', [RegistrosController::class, 'update'])->name('registros.update');
     Route::get('registros/observacoes', [RegistrosController::class,'observacoes'])->name('registros.observacoes');
     Route::get('registros/relatorios', [RegistrosController::class,'relatorios'])->name('registros.relatorios');
+    Route::get('registros/{registro}', [RegistrosController::class, 'show'])->name('registros.show');
+    Route::put('registros/{registro}', [RegistrosController::class, 'update'])->name('registros.update');
     Route::delete('registros/{registro}', [RegistrosController::class,'destroy'])->name('registros.destroy');
     Route::post('registros/relatorios/gerar', [RegistrosController::class,'gerar'])->name('registros.gerar');
     Route::post('registros/relatorios/relatoriostutor', [RegistrosController::class,'relatoriosTutor'])->name('registros.relatoriosTutor');

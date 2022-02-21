@@ -15,13 +15,16 @@ class CategoriasTableSeeder extends Seeder
     {
         \Illuminate\Support\Facades\DB::table('categorias')->insert([
             [
-                'categoria'=>'avulso'
+                'categoria'=>'avulso',
+                'created_at'=>now()
             ],
             [
-                'categoria'=>'mensal'
+                'categoria'=>'mensal',
+                'created_at'=>now()
             ],
             [
-                'categoria'=>'triagem'
+                'categoria'=>'triagem',
+                'created_at'=>now()
             ],
         ]);
     }

@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use App\Support\Cropper;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Animais extends Model
 {
+    use HasFactory;
     protected $table = 'animais';
     protected $fillable = [
         'donos_id',

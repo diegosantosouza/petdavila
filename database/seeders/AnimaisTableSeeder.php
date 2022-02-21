@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
+use App\Models\Animais;
 use Illuminate\Database\Seeder;
 
-class TutorTableSeeder extends Seeder
+class AnimaisTableSeeder extends Seeder
 {
     /**
-     * Run the database seeders.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        factory(\App\Tutor::class, 20)->create();
+        Animais::factory(300)->create();
     }
 }
