@@ -60,7 +60,6 @@ class AdminUserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-//        var_dump($user);
         return view('admin.user.edit',['user'=>$user]);
     }
 

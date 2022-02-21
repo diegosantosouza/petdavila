@@ -63,7 +63,7 @@
                             <td class="mask-money">{{$purchase->discount}}</td>
                             <td>{{$purchase->pricePurchase->last()->value - $purchase->discount}}</td>
                             <td>{{$purchase->status == 'paid' ? 'Pago' : 'Pendente'}}</td>
-                            @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
+{{--                            @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)--}}
                                 <td class="d-flex">
                                     <form action="{{ route('purchases.destroy', ['purchase'=>$purchase->id]) }}"
                                           method="post" class="confirm">
@@ -74,7 +74,7 @@
                                     <a class="btn btn-green icon-pencil"
                                        href="{{ route('purchases.edit', ['purchase'=>$purchase->id]) }}"></a>
                                 </td>
-                            @endif
+{{--                            @endif--}}
                         </tr>
                     @endforeach
                     </tbody>

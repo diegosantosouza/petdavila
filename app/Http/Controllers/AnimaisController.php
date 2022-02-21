@@ -109,8 +109,7 @@ class AnimaisController extends Controller
      */
     public function destroy($id)
     {
-        return redirect()->back()->with(['color' => 'orange', 'message' => 'Função desabilitada.']);
-//        Animais::find($id)->delete();
-//        return redirect()->route('animais.index')->with(['color' => 'green', 'message' => 'Animal deletado.']);
+        Animais::destroy($id);
+        return redirect()->route('animais.index')->with(['color' => 'green', 'message' => 'Animal deletado.']);
     }
 }
