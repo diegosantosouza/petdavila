@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Support\Cropper;
 use Illuminate\Database\Eloquent\Model;

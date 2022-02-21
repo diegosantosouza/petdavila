@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Purchases;
+use App\Models\Purchases;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

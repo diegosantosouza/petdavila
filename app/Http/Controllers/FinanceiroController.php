@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Donos;
-use App\Financeiro;
+use App\Models\Donos;
+use App\Models\Financeiro;
 use App\Http\Requests\Admin\FinanceiroRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

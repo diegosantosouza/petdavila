@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Transform;
 use App\Http\Requests\Admin\ServicesRequest as ServicesRequest;
-use App\Prices;
-use App\Services;
+use App\Models\Prices;
+use App\Models\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Config\Definition\Exception\Exception;

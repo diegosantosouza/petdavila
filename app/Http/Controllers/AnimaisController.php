@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Animais;
-use App\Categorias;
-use App\Donos;
+use App\Models\Categorias;
+use App\Models\Donos;
+use App\Models\Animais;
 use App\Support\Cropper;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\AnimaisRequest;

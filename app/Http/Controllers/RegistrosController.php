@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Animais;
-use App\Donos;
+use App\Models\Animais;
+use App\Models\Donos;
 use App\Helpers\Transform;
 use App\Http\Requests\Admin\RegistroRequest;
-use App\Registros;
+use App\Models\Registros;
 use Carbon\Carbon;
 use Carbon\Traits\Creator;
 use Illuminate\Database\Eloquent\Model;

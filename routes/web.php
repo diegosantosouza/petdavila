@@ -1,6 +1,5 @@
 <?php
 
-use App\Donos;
 use App\Http\Controllers\AnimaisController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DonosController;

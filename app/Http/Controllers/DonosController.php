@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Categorias;
-use App\Donos;
-use App\Financeiro;
+use App\Models\Categorias;
+use App\Models\Donos;
+use App\Models\Financeiro;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\DonosRequest as DonosRequest;
 
