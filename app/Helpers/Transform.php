@@ -24,4 +24,12 @@ class Transform
     {
         return (new \DateTime($param))->format('d-m-Y');
     }
+
+    public static function clearField(?string $param)
+    {
+        if (empty($param)) {
+            return '';
+        }
+        return str_replace(['.', '-', '/', '(', ')', ' '], '', $param);
+    }
 }

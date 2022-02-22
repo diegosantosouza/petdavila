@@ -36,7 +36,6 @@ class ServiceController extends Controller
 
     public function index()
     {
-        //FIXME get the lastest price
         $query = "SELECT a.id, a.name, a.description, a.renew, a.credit_days, a.status, b.value
         FROM service a
         LEFT JOIN price b ON a.id = b.service_id
@@ -103,12 +102,7 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        try {
-//            Services::find($id)->delete();
-            return back()->with(['color' => 'green', 'message' => 'Serviço deletado.']);
-        } catch (Exception $exception) {
-            return back()->with(['color' => 'red', 'message' => 'Erro ao deletar serviço']);
-        }
+        return back()->with(['color' => 'green', 'message' => 'Serviço desabilitado.']);
     }
 
     public function search(Request $request)

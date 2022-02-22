@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Transform;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,27 +49,16 @@ class Donos extends Model
 
     public function setCpfAttribute($value)
     {
-        $this->attributes['cpf'] = $this->clearField($value);
+        $this->attributes['cpf'] = Transform::clearField($value);
     }
 
     public function setTelefoneAttribute($value)
     {
-        $this->attributes['telefone'] = $this->clearField($value);
+        $this->attributes['telefone'] = Transform::clearField($value);
     }
 
     public function getTelefoneAttribute($value)
     {
         return substr($value, 0, 3) . '.' . substr($value, 3, 3) . '.' . substr($value, 6, 3) . '-' . substr($value, 9, 2);
     }
-
-    private function clearField(?string $param)
-    {
-        if (empty($param)) {
-            return '';
-        }
-
-        return str_replace(['.', '-', '/', '(', ')', ' '], '', $param);
-    }
-
-
 }

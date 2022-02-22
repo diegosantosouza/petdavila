@@ -43,7 +43,6 @@ class FinanceController extends Controller
     public function purchase()
     {
         $purchases = Purchases::with(['servicePurchase', 'pricePurchase', 'tutor'])->get();
-//        dd($purchases);
         return view('admin.finance.purchase', ['purchases' => $purchases]);
     }
 
@@ -87,11 +86,6 @@ class FinanceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
-    }
-
-    public function get()
     {
         //
     }

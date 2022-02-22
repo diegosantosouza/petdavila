@@ -65,7 +65,6 @@ class PurchasesController extends Controller
     public function edit($id)
     {
         $purchase = Purchases::where('id', $id)->with(['servicePurchase', 'pricePurchase', 'tutor'])->first();
-//        dd($purchase);
         return view('admin.purchases.edit', ['purchase' => $purchase]);
     }
 

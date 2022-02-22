@@ -26,7 +26,7 @@ class AddColumnAnimalCategoriaId extends Migration
     public function down()
     {
         Schema::table('animais', function (Blueprint $table) {
-            //
+            $table->dropColumn(['categoria_id']);
         });
     }
 }

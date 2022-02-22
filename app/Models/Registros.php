@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Carbon\Traits\Creator;
 use Illuminate\Database\Eloquent\Model;
 
 class Registros extends Model
@@ -117,8 +116,7 @@ class Registros extends Model
                 }
             }
         }
-        $resultado = (object)['daycare' => $daycare, 'nightcare' => $nightcare, 'fds' => $fds];
-        return $resultado;
+        return (object)['daycare' => $daycare, 'nightcare' => $nightcare, 'fds' => $fds];
     }
 
     public function registrosAnimal()
@@ -149,26 +147,6 @@ class Registros extends Model
         if (empty($this->saida)) {
             return null;
         }
-
         return date('d/m/Y H:i', strtotime($this->saida));
-    }
-
-    private function convertStringToDate(?string $param)
-    {
-        if(empty($param)){
-            return null;
-        }
-
-        list($day, $month, $year) = explode('/', $param);
-        return (new \DateTime($year . '-' . $month . '-' . $day))->format('Y-m-d H:i:s');
-    }
-
-    private function clearField(?string $param)
-    {
-        if(empty($param)){
-            return '';
-        }
-
-        return str_replace(['.', '-', '/', '(', ')', ' '], '', $param);
     }
 }

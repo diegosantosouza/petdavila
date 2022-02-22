@@ -26,7 +26,7 @@ class AddUuidFieldToFailedJobsTable extends Migration
     public function down()
     {
         Schema::table('failed_jobs', function (Blueprint $table) {
-            //
+            $table->dropColumn(['uuid']);
         });
     }
 }

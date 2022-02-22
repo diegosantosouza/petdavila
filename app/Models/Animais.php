@@ -41,7 +41,7 @@ class Animais extends Model
     {
         return $this->hasOne(Categorias::class, 'id', 'categoria_id')->withDefault([
             'categoria_id' => '',
-        ]);;
+        ]);
     }
 
 }

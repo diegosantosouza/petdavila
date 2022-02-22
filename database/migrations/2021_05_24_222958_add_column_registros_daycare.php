@@ -29,7 +29,7 @@ class AddColumnRegistrosDaycare extends Migration
     public function down()
     {
         Schema::table('registros', function (Blueprint $table) {
-            //
+            $table->dropColumn(['daycare', 'nightcare', 'hotel', 'fds']);
         });
     }
 }

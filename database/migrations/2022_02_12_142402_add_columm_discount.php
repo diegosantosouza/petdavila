@@ -27,7 +27,7 @@ class AddColummDiscount extends Migration
     public function down()
     {
         Schema::table('purchase', function (Blueprint $table) {
-            //
+            $table->dropColumn(['discount', 'notes']);
         });
     }
 }
