@@ -2,19 +2,27 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Middleware\TrustHosts as Middleware;
+use Illuminate\Http\Middleware\TrustProxies as Middleware;
+use Illuminate\Http\Request;
 
-class TrustHosts extends Middleware
+class TrustProxies extends Middleware
 {
     /**
-     * Get the host patterns that should be trusted.
+     * The trusted proxies for this application.
      *
-     * @return array
+     * @var array<int, string>|string|null
      */
-    public function hosts()
-    {
-        return [
-            $this->allSubdomainsOfApplicationUrl(),
-        ];
-    }
+    protected $proxies;
+
+    /**
+     * The headers that should be used to detect proxies.
+     *
+     * @var int
+     */
+    protected $headers =
+        Request::HEADER_X_FORWARDED_FOR |
+        Request::HEADER_X_FORWARDED_HOST |
+        Request::HEADER_X_FORWARDED_PORT |
+        Request::HEADER_X_FORWARDED_PROTO |
+        Request::HEADER_X_FORWARDED_AWS_ELB;
 }

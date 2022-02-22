@@ -66,7 +66,7 @@
             </li>
 
             <li class="dash_sidebar_nav_item {{ isActive('animais')}}">
-                <a class="icon-users " href="{{ route('animais.index') }}">Animais</a>
+                <a class="icon-paw" href="{{ route('animais.index') }}">Animais</a>
                 <ul class="dash_sidebar_nav_submenu">
                     <li class=""><a href="{{ route('animais.index') }}">Ver Todos</a></li>
                 </ul>
@@ -82,6 +82,18 @@
                     <li class=""><a href="{{ route('registros.relatorios') }}">Relatórios</a></li>
 
                     <li class=""><a href="{{ route('registros.observacoes') }}">Obs.</a></li>
+
+                </ul>
+            </li>
+
+            <li class="dash_sidebar_nav_item {{ isActive('finance') }} {{ isActive('service') }}" >
+                <a class="icon-usd">Financeiro</a>
+                <ul class="dash_sidebar_nav_submenu">
+                    <li class="{{ isActive('purchase') }}"><a class="icon-credit-card" href="{{ route('finance.purchase') }}">Vendas</a></li>
+
+                    <li class="{{ isActive('recurrence') }}"><a class="icon-calendar" href="{{ route('finance.recurrence') }}">Recorrências</a></li>
+
+                    <li class="{{ isActive('service') }}"><a class="icon-archive" href="{{ route('service.index') }}">Serviços</a></li>
 
                 </ul>
             </li>
@@ -124,7 +136,7 @@
 <script src="{{ url('backend/assets/bootstrap/js/bootstrap.bundle.js')}}"></script>
 <script src="{{ url('backend/assets/bootstrap/js/bootstrap.js')}}"></script>
 <script src="{{ url('backend/assets/js/pace.min.js')}}"></script>
-
+<script src="{{ url('backend/assets/js/sweetalert.min.js')}}"></script>
 
 @hasSection('js')
     @yield('js')

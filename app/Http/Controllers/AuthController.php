@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Anamnese;
-use App\Animal;
-use App\Registros;
-use App\User;
+use App\Models\Anamnese;
+use App\Models\Animal;
+use App\Models\Registros;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

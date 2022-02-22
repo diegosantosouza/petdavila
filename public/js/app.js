@@ -9757,7 +9757,7 @@ var rnothtmlwhite = ( /[^\x20\t\r\n\f]+/g );
 
 
 
-// Convert String-formatted options into Object-formatted ones
+// Transform String-formatted options into Object-formatted ones
 function createOptions( options ) {
 	var object = {};
 	jQuery.each( options.match( rnothtmlwhite ) || [], function( _, flag ) {
@@ -9790,7 +9790,7 @@ function createOptions( options ) {
  */
 jQuery.Callbacks = function( options ) {
 
-	// Convert options from String-formatted to Object-formatted if needed
+	// Transform options from String-formatted to Object-formatted if needed
 	// (we check in cache first)
 	options = typeof options === "string" ?
 		createOptions( options ) :
@@ -10547,7 +10547,7 @@ function fcamelCase( _all, letter ) {
 	return letter.toUpperCase();
 }
 
-// Convert dashed to camelCase; used by the css and data modules
+// Transform dashed to camelCase; used by the css and data modules
 // Support: IE <=9 - 11, Edge 12 - 15
 // Microsoft forgot to hump their vendor prefix (#9572)
 function camelCase( string ) {
@@ -11356,11 +11356,11 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 				// push.apply(_, arraylike) throws on ancient WebKit
 				jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem );
 
-			// Convert non-html into a text node
+			// Transform non-html into a text node
 			} else if ( !rhtml.test( elem ) ) {
 				nodes.push( context.createTextNode( elem ) );
 
-			// Convert html into DOM nodes
+			// Transform html into DOM nodes
 			} else {
 				tmp = tmp || fragment.appendChild( context.createElement( "div" ) );
 
@@ -13254,7 +13254,7 @@ jQuery.extend( {
 		if ( value !== undefined ) {
 			type = typeof value;
 
-			// Convert "+=" or "-=" to relative numbers (#7345)
+			// Transform "+=" or "-=" to relative numbers (#7345)
 			if ( type === "string" && ( ret = rcssNum.exec( value ) ) && ret[ 1 ] ) {
 				value = adjustCSS( elem, name, ret );
 
@@ -13329,7 +13329,7 @@ jQuery.extend( {
 			val = curCSS( elem, name, styles );
 		}
 
-		// Convert "normal" to computed value
+		// Transform "normal" to computed value
 		if ( val === "normal" && name in cssNormalTransform ) {
 			val = cssNormalTransform[ name ];
 		}
@@ -13401,7 +13401,7 @@ jQuery.each( [ "height", "width" ], function( _i, dimension ) {
 				);
 			}
 
-			// Convert to pixels if value adjustment is needed
+			// Transform to pixels if value adjustment is needed
 			if ( subtract && ( matches = rcssNum.exec( value ) ) &&
 				( matches[ 3 ] || "px" ) !== "px" ) {
 
@@ -15531,7 +15531,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 
 	current = dataTypes.shift();
 
-	// Convert to each sequential dataType
+	// Transform to each sequential dataType
 	while ( current ) {
 
 		if ( s.responseFields[ current ] ) {
@@ -15553,7 +15553,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 
 				current = prev;
 
-			// Convert response if prev dataType is non-auto and differs from current
+			// Transform response if prev dataType is non-auto and differs from current
 			} else if ( prev !== "*" && prev !== current ) {
 
 				// Seek a direct converter
@@ -15665,7 +15665,7 @@ jQuery.extend( {
 		// Keys separate source (or catchall "*") and destination types with a single space
 		converters: {
 
-			// Convert anything to text
+			// Transform anything to text
 			"* text": String,
 
 			// Text to html (true = no transformation)
@@ -15881,7 +15881,7 @@ jQuery.extend( {
 			}
 		}
 
-		// Convert data if not already a string
+		// Transform data if not already a string
 		if ( s.data && s.processData && typeof s.data !== "string" ) {
 			s.data = jQuery.param( s.data, s.traditional );
 		}
@@ -16070,7 +16070,7 @@ jQuery.extend( {
 				s.converters[ "text script" ] = function() {};
 			}
 
-			// Convert no matter what (that way responseXXX fields are always set)
+			// Transform no matter what (that way responseXXX fields are always set)
 			response = ajaxConvert( s, response, jqXHR, isSuccess );
 
 			// If successful, handle type chaining
@@ -36160,7 +36160,7 @@ function parseOffset(offset, popperOffsets, referenceOffsets, basePlacement) {
   var splitRegex = /\s*,\s*|\s+/;
   var ops = divider !== -1 ? [fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]), [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1))] : [fragments];
 
-  // Convert the values with units to absolute pixels to allow our computations
+  // Transform the values with units to absolute pixels to allow our computations
   ops = ops.map(function (op, index) {
     // Most of the units rely on the orientation of the popper
     var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width';

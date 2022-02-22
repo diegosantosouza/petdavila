@@ -1,13 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Support\Cropper;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Animais extends Model
 {
+    use HasFactory;
     protected $table = 'animais';
     protected $fillable = [
         'donos_id',
@@ -39,7 +41,7 @@ class Animais extends Model
     {
         return $this->hasOne(Categorias::class, 'id', 'categoria_id')->withDefault([
             'categoria_id' => '',
-        ]);;
+        ]);
     }
 
 }

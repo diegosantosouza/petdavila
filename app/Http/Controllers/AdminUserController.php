@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Support\Cropper;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,7 +60,6 @@ class AdminUserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->first();
-//        var_dump($user);
         return view('admin.user.edit',['user'=>$user]);
     }
 

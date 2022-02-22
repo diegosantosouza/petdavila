@@ -26,7 +26,7 @@ class AddColumnRegistrosObservacao extends Migration
     public function down()
     {
         Schema::table('registros', function (Blueprint $table) {
-            //
+            $table->dropColumn(['observacoes']);
         });
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Categorias;
-use App\Donos;
-use App\Financeiro;
+use App\Models\Categorias;
+use App\Models\Donos;
+use App\Models\Financeiro;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\DonosRequest as DonosRequest;
 
@@ -100,9 +100,17 @@ class DonosController extends Controller
      */
     public function destroy($id)
     {
-        return redirect()->back()->with(['color' => 'orange', 'message' => 'Função desabilitada.']);
-//
-//        Donos::find($id)->delete();
-//        return redirect()->route('tutores.index')->with(['color' => 'green', 'message' => 'Tutor deletado.']);
+        Donos::destroy($id);
+        return redirect()->route('tutores.index')->with(['color' => 'green', 'message' => 'Tutor deletado.']);
+    }
+
+    public function search(Request $request)
+    {
+        $tutores = Donos::orderby('nome', 'asc')->select(['id', 'nome'])->where('nome', 'like', $request->tutorSearch . '%')->limit(5)->get();
+        $response = array();
+        foreach ($tutores as $dono) {
+            $response[] = array("value" => $dono->id, "label" => $dono->nome);
+        }
+        echo json_encode($response);
     }
 }

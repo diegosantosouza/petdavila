@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\Animais;
 use Illuminate\Database\Seeder;
 
-class TutorTableSeeder extends Seeder
+class AnimaisTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +14,6 @@ class TutorTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Tutor::class, 20)->create();
+        Animais::factory(300)->create();
     }
 }

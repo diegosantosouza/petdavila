@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Animais;
-use App\Categorias;
-use App\Donos;
+use App\Models\Categorias;
+use App\Models\Donos;
+use App\Models\Animais;
 use App\Support\Cropper;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\AnimaisRequest;
@@ -109,8 +109,7 @@ class AnimaisController extends Controller
      */
     public function destroy($id)
     {
-        return redirect()->back()->with(['color' => 'orange', 'message' => 'Função desabilitada.']);
-//        Animais::find($id)->delete();
-//        return redirect()->route('animais.index')->with(['color' => 'green', 'message' => 'Animal deletado.']);
+        Animais::destroy($id);
+        return redirect()->route('animais.index')->with(['color' => 'green', 'message' => 'Animal deletado.']);
     }
 }
