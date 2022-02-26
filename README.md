@@ -1,5 +1,5 @@
 # Aplicação Pet da vila
-Laravel 7 , Bootstrap 4, MySql, JQuery.
+Laravel 8 , Bootstrap 4, MySql, JQuery.
 
 ## Ambiente Docker
 ```
@@ -14,7 +14,7 @@ nginx:
 ### Dockerfile do aplicativo
 > .DockerFile // php:7.4-fpm
 
-### Docker compose
+### Docker compose (require compose V2)
 > .docker-compose.yml
 
 ```
