@@ -1,5 +1,5 @@
 # Aplicação Pet da vila
-Laravel 7 , Bootstrap 4, MySql, JQuery.
+Laravel 8 , Bootstrap 4, MySql, JQuery.
 
 ## Ambiente Docker
 ```
@@ -14,7 +14,7 @@ nginx:
 ### Dockerfile do aplicativo
 > .DockerFile // php:7.4-fpm
 
-### Docker compose
+### Docker compose (require compose V2)
 > .docker-compose.yml
 
 ```
@@ -82,7 +82,7 @@ email = test@mail.com
 password = 123456789
 ```
 Rota para criação de usuário:
-> http://server_domain_or_IP:8000/register
+> http://server_domain_or_IP:8080/register
 
 ### Atenção por padrão o novo usuário criado não tem permissões de Administrador, para atribuir privilégios a um usuário você deve acesar o banco de dados disponivel por algum cliente SQL e definir na tabela 'users' coluna 'admin' para 'true' ou 1:
 > localhost porta: 3307
