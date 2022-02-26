@@ -82,7 +82,7 @@ email = test@mail.com
 password = 123456789
 ```
 Rota para criação de usuário:
-> http://server_domain_or_IP:8000/register
+> http://server_domain_or_IP:8080/register
 
 ### Atenção por padrão o novo usuário criado não tem permissões de Administrador, para atribuir privilégios a um usuário você deve acesar o banco de dados disponivel por algum cliente SQL e definir na tabela 'users' coluna 'admin' para 'true' ou 1:
 > localhost porta: 3307
