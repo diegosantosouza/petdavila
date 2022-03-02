@@ -32,10 +32,4 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
-# Copy script file for artisan commands
-COPY ./docker-compose/app/wait-for-it.sh /wait-for-it.sh
-
-# Set permission
-RUN chmod +x /wait-for-it.sh
-
 USER $user
