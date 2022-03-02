@@ -8,7 +8,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     image: petdavila
-    command: sh -c "/wait-for-it.sh db:3306 && \
+    command: sh -c "
       composer install && \
       cp .env.example .env && \
       php artisan key:generate && \
@@ -22,7 +22,8 @@ services:
     networks:
       - petdavila
     depends_on:
-      - db
+      db:
+          condition: service_healthy
 
   db:
     image: mysql:5.7
@@ -31,6 +32,7 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       SERVICE_TAGS: dev
@@ -39,6 +41,11 @@ services:
       - 3307:3306
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    healthcheck:
+            test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+            interval: 10s
+            timeout: 20s
+            retries: 10   
     networks:
       - petdavila
 
@@ -50,7 +57,7 @@ services:
       - 8080:80
     volumes:
       - ./:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d
+      - ./docker-compose/nginx:/etc/nginx/conf.d 
     networks:
       - petdavila
     depends_on:
