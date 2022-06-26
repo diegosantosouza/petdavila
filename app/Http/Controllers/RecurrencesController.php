@@ -2,23 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Admin\PurchaseRequest;
-use App\Models\Purchases;
+use App\Http\Requests\Admin\RecurrencesRequest;
+use App\Models\Recurrences;
 use App\Models\Services;
 use Illuminate\Http\Request;
 
-class PurchasesController extends Controller
+class RecurrencesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +16,7 @@ class PurchasesController extends Controller
      */
     public function create()
     {
-        return view('admin.purchases.create');
+        return view('admin.recurrence.create');
     }
 
     /**
@@ -35,12 +25,10 @@ class PurchasesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PurchaseRequest $request)
+    public function store(RecurrencesRequest $request)
     {
-        dd($request->all());
-        $purchase = new Purchases();
+        $purchase = new Recurrences();
         $purchase->fill($request->all());
-        $purchase->date = new \DateTime();
         $purchase->save();
         return redirect()->route('finance.purchase')->with(['color' => 'green', 'message' => 'Cadastrado com sucesso!']);
     }
@@ -53,7 +41,8 @@ class PurchasesController extends Controller
      */
     public function show($id)
     {
-        //
+        $recurrence = Recurrences::where('id', $id)->with(['service', 'tutor'])->first();
+        return view('admin.recurrence.show', ['recurrence'=>$recurrence]);
     }
 
     /**
@@ -64,8 +53,8 @@ class PurchasesController extends Controller
      */
     public function edit($id)
     {
-        $purchase = Purchases::where('id', $id)->with(['servicePurchase', 'pricePurchase', 'tutor'])->first();
-        return view('admin.purchases.edit', ['purchase' => $purchase]);
+        $recurrence = Recurrences::where('id', $id)->with(['service', 'tutor'])->first();
+        return view('admin.recurrence.edit', ['recurrence' => $recurrence]);
     }
 
     /**
@@ -75,12 +64,12 @@ class PurchasesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PurchaseRequest $request, $id)
+    public function update(RecurrencesRequest $request, $id)
     {
-        $purchase = Purchases::where('id', $id)->first();
+        $purchase = Recurrences::where('id', $id)->first();
         $purchase->fill($request->all());
         $purchase->save();
-        return redirect()->route('finance.purchase')->with(['color' => 'green', 'message' => 'Atualizado com sucesso!']);
+        return redirect()->route('finance.recurrence')->with(['color' => 'green', 'message' => 'Atualizado com sucesso!']);
     }
 
     /**
@@ -91,7 +80,7 @@ class PurchasesController extends Controller
      */
     public function destroy($id)
     {
-        Purchases::destroy($id);
-        return redirect()->route('finance.purchase')->with(['color' => 'green', 'message' => 'Deletado com sucesso!']);
+        Recurrences::destroy($id);
+        return redirect()->route('finance.recurrence')->with(['color' => 'green', 'message' => 'Deletado com sucesso!']);
     }
 }

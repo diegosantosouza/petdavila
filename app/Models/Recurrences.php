@@ -18,8 +18,13 @@ class Recurrences extends Model
         'updated_at'
     ];
 
-    public function serviceRecurrence()
+    public function service()
     {
-        return $this->hasMany(Services::class, 'id', 'service_id');
+        return $this->hasOne(Services::class, 'id', 'service_id');
+    }
+
+    public function tutor()
+    {
+        return $this->hasOne(Donos::class, 'id', 'tutor_id');
     }
 }

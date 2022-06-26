@@ -91,10 +91,9 @@
                 <ul class="dash_sidebar_nav_submenu">
                     <li class="{{ isActive('purchase') }}"><a class="icon-credit-card" href="{{ route('finance.purchase') }}">Vendas</a></li>
 
-                    <li class="{{ isActive('recurrence') }}"><a class="icon-calendar" href="{{ route('finance.recurrence') }}">Recorrências</a></li>
-
                     <li class="{{ isActive('service') }}"><a class="icon-archive" href="{{ route('service.index') }}">Serviços</a></li>
 
+                    <li class="{{ isActive('recurrence') }}"><a class="icon-calendar" href="{{ route('finance.recurrence') }}">Recorrências</a></li>
                 </ul>
             </li>
 

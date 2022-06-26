@@ -8,6 +8,7 @@ use App\Http\Controllers\FinanceiroController;
 use App\Http\Controllers\PurchasesController;
 use App\Http\Controllers\RegistrosController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\RecurrencesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -137,5 +138,11 @@ Route::group(['middleware' => ['auth']], function () {
      */
     Route::post('purchases', [PurchasesController::class,'store'])->name('purchases.store');
     Route::get('purchases', [PurchasesController::class,'create'])->name('purchases.create');
+
+    /**
+     * Recurrence Routes
+     */
+    Route::post('recurrence', [RecurrencesController::class,'store'])->name('recurrence.store');
+    Route::get('recurrence', [RecurrencesController::class,'create'])->name('recurrence.create');
 
 });

@@ -47,9 +47,7 @@
                         <th>desconto</th>
                         <th>total</th>
                         <th>Status</th>
-                        @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                            <th></th>
-                        @endif
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,18 +61,15 @@
                             <td class="mask-money">{{$purchase->discount}}</td>
                             <td>{{$purchase->pricePurchase->last()->value - $purchase->discount}}</td>
                             <td>{{$purchase->status == 'paid' ? 'Pago' : 'Pendente'}}</td>
-{{--                            @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)--}}
-                                <td class="d-flex">
-                                    <form action="{{ route('purchases.destroy', ['purchase'=>$purchase->id]) }}"
-                                          method="post" class="confirm">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-red icon-trash"></button>
-                                    </form>
-                                    <a class="btn btn-green icon-pencil"
-                                       href="{{ route('purchases.edit', ['purchase'=>$purchase->id]) }}"></a>
-                                </td>
-{{--                            @endif--}}
+                            <td class="d-flex">
+                                <form action="{{ route('purchases.destroy', ['purchase'=>$purchase->id]) }}" method="post" class="confirm">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-red icon-trash"></button>
+                                </form>
+                                <a class="btn btn-green icon-pencil"
+                                   href="{{ route('purchases.edit', ['purchase'=>$purchase->id]) }}"></a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

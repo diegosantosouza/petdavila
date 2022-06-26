@@ -16,6 +16,7 @@ class CreateDiscountTable extends Migration
         Schema::create('discount', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tutor_id')->references('id')->on('donos');
+            $table->foreignId('service_id')->references('id')->on('service');
             $table->dateTime('start');
             $table->dateTime('end')->nullable();
             $table->decimal('value', 10, 2);

@@ -48,9 +48,7 @@
                             <th>Diárias</th>
                             <th>Preço atual</th>
                             <th>Status</th>
-                            @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                                <th></th>
-                            @endif
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -63,19 +61,16 @@
                                 <td>{{$service->credit_days}}</td>
                                 <td>{{$service->value}}</td>
                                 <td>{{$service->status}}</td>
-                                @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                                    <td class="d-flex">
-                                        <form action="{{ route('service.destroy', ['service'=>$service->id]) }}"
-                                              method="post" class="">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-red icon-trash"></button>
-                                        </form>
-                                        <a class="btn btn-green icon-pencil"
-                                           href="{{ route('service.edit', ['service'=>$service->id]) }}"></a>
-                                        <a class="btn btn-blue icon-search"></a>
-                                    </td>
-                                @endif
+                                <td class="d-flex">
+                                    <form action="{{ route('service.destroy', ['service'=>$service->id]) }}" method="post" class="">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-red icon-trash"></button>
+                                    </form>
+                                    <a class="btn btn-green icon-pencil"
+                                       href="{{ route('service.edit', ['service'=>$service->id]) }}"></a>
+                                    <a class="btn btn-blue icon-search"></a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

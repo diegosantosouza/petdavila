@@ -85,7 +85,8 @@ class ServiceController extends Controller
         $service->save();
 
         $newPrice = Transform::convertStringToDouble($request->get("price"));
-        if ($request->old_price != $newPrice) {
+        $lastPrice = Prices::where('service_id', $id)->latest()->first();
+        if ($lastPrice->value != $newPrice) {
             $price = new Prices();
             $price->fill(["service_id" => $service->id, "value" => intval($request->get("price")), "start" => $today]);
             $price->save();
@@ -102,7 +103,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        return back()->with(['color' => 'green', 'message' => 'Serviço desabilitado.']);
+        Services::destroy($id);
+        return redirect()->route('service.index')->with(['color' => 'green', 'message' => 'Deletado com sucesso!']);
     }
 
     public function search(Request $request)

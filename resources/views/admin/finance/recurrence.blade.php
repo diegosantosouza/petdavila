@@ -14,6 +14,7 @@
                         <li><a href="{{ route('finance.recurrence') }}">Pacotes Recorrentes</a></li>
                     </ul>
                 </nav>
+                <a href="{{ route('recurrence.create') }}" class="btn btn-orange icon-calendar-minus-o ml-1">Criar novo</a>
             </div>
         </header>
 
@@ -37,38 +38,32 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Pacotes</th>
-                        <th>Descrição</th>
-                        <th>Recorrência em dias</th>
-                        <th>Diárias</th>
+                        <th>Serviço</th>
+                        <th>Assinantes</th>
+                        <th>Recorrência dia</th>
                         <th>Preço atual</th>
                         <th>Status</th>
-                        @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                            <th></th>
-                        @endif
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>ID</td>
                             <td>Nome</td>
-                            <td>Descrição</td>
-                            <td>Recorrência em dias</td>
-                            <td>Diárias</td>
+                            <td>Assinantes</td>
+                            <td>Recorrência dia</td>
                             <td>Preço atual</td>
                             <td>Status</td>
-                                @if(\Illuminate\Support\Facades\Auth::user()->admin == 1)
-                                    <td class="text-right">
-                                        <a class="btn btn-red icon-trash"></a>
-                                        <a class="btn btn-green icon-pencil"></a>
-                                        <a class="btn btn-blue icon-search"></a>
-                                    </td>
-                                @endif
+                            <td class="text-right">
+                                <a class="btn btn-red icon-trash"></a>
+                                <a class="btn btn-green icon-pencil"></a>
+                                <a class="btn btn-blue icon-search"></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
-    
+
 @endsection
