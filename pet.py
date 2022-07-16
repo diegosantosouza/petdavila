@@ -9,7 +9,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 ############################################################################################################
 # Dependencies                                                                                             #
 # Selenium -> pip install selenium                                                                         #
-# Start on Windows -> C:\Users\current_user\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\  #
+# Webdriver manager -> pip install webdriver-manager                                                       #
+# Start on Windows -> C:\Users\current_user\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\ #
 ############################################################################################################
 
 # Verifies your os type
@@ -54,7 +55,7 @@ def RegisterPage(service):
     driver.implicitly_wait(0.5)
     # register page
     driver.get(endpoint+"/registros/create")
-    
+
 def closeChromeInstances():
     subprocess.call("TASKKILL /f  /IM  CHROME.EXE")
     subprocess.call("TASKKILL /f  /IM  CHROMEDRIVER.EXE")
